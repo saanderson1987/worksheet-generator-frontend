@@ -28,15 +28,9 @@ class PaceCalculator extends React.Component {
     return paceTime;
   }
 
-
   render() {
     return (
-      <div>
-        <PaceForm
-          calculatePace={this.calculatePace}
-        />
-      </div>
-
+      <PaceForm calculatePace={this.calculatePace}/>
     );
   }
 }

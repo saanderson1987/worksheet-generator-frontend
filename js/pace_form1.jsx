@@ -35,10 +35,6 @@ class PaceForm extends React.Component {
     this.setState({pace: pace});
   }
 
-
-
-
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -77,7 +73,7 @@ class PaceForm extends React.Component {
       </form>
     );
   }
-
+  
 }
 
 export default PaceForm;

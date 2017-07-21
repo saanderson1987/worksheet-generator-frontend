@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PaceCalculator from './pace_calculator1';
 
 const App = () => {
@@ -13,4 +14,7 @@ const App = () => {
 
 };
 
-export default App;
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
