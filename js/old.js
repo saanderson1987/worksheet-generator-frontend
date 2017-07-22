@@ -1,4 +1,3 @@
-
 let timeToFloat = (min, sec) => {
   let decimal = sec / 60;
   return min + decimal;
