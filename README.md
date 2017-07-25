@@ -8,4 +8,4 @@ Using an HTML file for the interface, I composed the math functions using JavaSc
 
 I knew I could build it using a single component, but I thought it would be better if I test out React's modular nature by separating the input form from the calculator. By keeping the calculator functions in a separate component, I could rely on them to help create another component later, such as a one that populates a chart with distance times and their interval pace.
 
-The input form component `<PaceForm />` stores all the input values in its local state. One the form is submitted, it calls the function `calculatePace`, which has been passed down to its props from `<PaceCalculator />`, and sets the `pace` value in its state.
+The input form component `<PaceForm />` stores all the input values in its local state. One the form is submitted, it calls the function `calculatePace()`, which has been passed down to its props from `<PaceCalculator />`, and sets the `pace` value in its state.
