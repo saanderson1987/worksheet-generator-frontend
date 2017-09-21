@@ -9,8 +9,7 @@ const newBlankSource = {
   beginDrag(props) {
     return {
       id: props.id,
-      index: props.index,
-      type: 'blank'
+      index: null,
     };
   },
 

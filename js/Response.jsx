@@ -5,47 +5,49 @@ import { DropTarget } from 'react-dnd';
 import ItemTypes from './ItemTypes';
 
 const responseTarget = {
-  drop() {
-    return { type: 'response' };
-  },
-
   hover(props, monitor, component) {
-    // const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.respIdx;
+    const dragIndex = monitor.getItem().index;
     const problemIdx = props.problemIdx;
-    // if (dragIndex === hoverIndex) {
-    //   return;
-    // }
-
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
 
     const clientOffset = monitor.getClientOffset();
 
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
-    if (hoverClientY < hoverMiddleY) {
-      return;
+    let hoverIndex = props.respIdx;
+    if (hoverClientX > hoverMiddleX) {
+      hoverIndex ++;
     }
 
-    if (hoverClientY > hoverMiddleY) {
-      return;
+    if (dragIndex !== null) {
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+        return;
+      }
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+        return;
+      }
+      props.moveBlank(dragIndex, hoverIndex, problemIdx);
+    } else {
+      props.dropBlank(problemIdx, hoverIndex);
     }
 
-    props.dropBlank(problemIdx, hoverIndex);
-
-    // monitor.getItem().index = hoverIndex;
+    monitor.getItem().index = hoverIndex;
+    console.log(dragIndex, hoverIndex);
   },
 };
 
 class Response extends React.Component {
   render() {
-    const { canDrop, isOver, connectDropTarget } = this.props;
-    const isActive = canDrop && isOver;
-
+    const { connectDropTarget, opaque } = this.props;
+    // const isActive = canDrop && isOver;
+    const opacity = opaque ? 0 : 1;
     return connectDropTarget(
-      <div className='response'>
+      <div style={{opacity}} className='response'>
         {this.props.children}
       </div>
     );
@@ -54,6 +56,6 @@ class Response extends React.Component {
 
 export default DropTarget(ItemTypes.NEWBLANK, responseTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
+  // isOver: monitor.isOver(),
+  // canDrop: monitor.canDrop(),
 }))(Response);

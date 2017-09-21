@@ -21,11 +21,13 @@ class NewDocForm extends React.Component {
     this.handleQuestionInput = this.handleQuestionInput.bind(this);
     this.handleResponseInput = this.handleResponseInput.bind(this);
     this.addProblem = this.addProblem.bind(this);
-    this.addBlank = this.addBlank.bind(this);
     this.moveProblem = this.moveProblem.bind(this);
     this.addNewProblem = this.addNewProblem.bind(this);
-    this.drop = this.drop.bind(this);
+    this.makeProbVisible = this.makeProbVisible.bind(this);
     this.dropBlank = this.dropBlank.bind(this);
+    this.moveBlank = this.moveBlank.bind(this);
+    this.removeProblem = this.removeProblem.bind(this);
+    this.makeProbVisible = this.makeProbVisible.bind(this);
     this.state = {
       docName: '',
       problemCount: 3,
@@ -91,90 +93,26 @@ class NewDocForm extends React.Component {
           </div>
           <div className='toolbox'>
             <div>Toolbox</div>
-            <NewBlank drop={this.drop}/>
-            <NewProblem />
+            <NewBlank id={shortid.generate()} drop={this.drop}/>
+            <NewProblem id={shortid.generate()} removeProblem={this.removeProblem} makeProbVisible={this.makeProbVisible} />
           </div>
         </div>
       </div>
     );
   }
 
-  drop(sourceType, targetType) {
-    if (sourceType === 'blank') {
-      const boxes = cloneDeep(this.state.boxes);
-      boxes.push(
-        <input
-          className='new-form-answer-input'
-          disabled
-          placeholder='New blank'
-          key={shortid.generate()}
-        />
-      );
-      this.setState({ boxes });
-    }
-  }
-
-  dropBlank(problemIdx, respIdx) {
-    const problems = cloneDeep(this.state.problems);
-    problems[problemIdx].response.splice(respIdx, 0,
-      {
-        text: '',
-        blank: true
-      });
-    this.setState({ problems });
-  }
-
-  addBlank(problemIdx, respIdx, pos) {
-    return (event) => {
-      event.preventDefault();
-      const problems = cloneDeep(this.state.problems);
-      if (pos === 'post') {
-        problems[problemIdx].response.splice([respIdx + 1], 0,
-          {
-            text: '',
-            blank: false
-          });
-      }
-      problems[problemIdx].response.splice([respIdx + 1], 0,
-        {
-          text: '',
-          blank: true
-        });
-
-      this.setState({ problems });
-    };
-  }
-
-
-  moveProblem(dragIndex, hoverIndex) {
-    // const problems = cloneDeep(this.state.problems);
-    // const dragProblem = problems.splice(dragIndex, 1)[0];
-    // problems.splice(hoverIndex, 0, dragProblem);
-    // this.setState({ problems });
-
-    const { problems } = this.state;
-    const dragProblem = problems[dragIndex];
-
-    this.setState(update(this.state, {
-      problems: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragProblem],
-        ],
-      },
-    }));
-  }
-
   renderProblems() {
     return this.state.problems.map( (problem, idx) => {
       return(
         <Problem
-          key={problem.id}
+          key={ shortid.generate() }
           id={problem.id}
           index={idx}
           moveProblem={this.moveProblem}
           addNewProblem={this.addNewProblem}
+          makeProbVisible={this.makeProbVisible}
           question={problem.question}
+          opaque={problem.opaque}
         >
           <div>
             { idx + 1 }.{' '}
@@ -194,16 +132,16 @@ class NewDocForm extends React.Component {
     });
   }
 
-
   renderResponse(problemIdx) {
     let problem = this.state.problems[problemIdx];
     return problem.response.map( (part, idx) => {
       if (part.blank) {
+        // const opacity = part.opaque ? 0 : 1;
         return (
           <div key={ shortid.generate() } >
-            <AutosizeInput
+            <input
               placeholder="Answer blank"
-              inputClassName='new-form-answer-input'
+              className='new-form-answer-input'
               value={ problem.response[idx].text }
               onChange={ this.handleResponseInput(problemIdx, idx) }
             />
@@ -212,17 +150,16 @@ class NewDocForm extends React.Component {
 
         );
       } else {
-        const placeholder = idx === 0 ? 'Response' : '...continue respone';
+        const placeholder = idx === 0 ? 'Response' : '...continue response';
         const minWidth = idx === 0 ? '' : '10';
-        const addPreBlankButton = idx === 0 ?
-          <button className='modify-blank' onClick={ this.addBlank(problemIdx, idx - 1, 'pre') }>+</button>
-          : '';
+
         return (
             <Response
               key={ shortid.generate() }
               problemIdx={problemIdx}
               respIdx={idx}
               dropBlank={this.dropBlank}
+              moveBlank={this.moveBlank}
               >
                 <AutosizeInput
                   placeholder={ placeholder }
@@ -237,6 +174,73 @@ class NewDocForm extends React.Component {
     });
   }
 
+  dropBlank(problemIdx, respIdx) {
+    const prevResp = this.state.problems[problemIdx].response[respIdx - 1];
+    if (prevResp && prevResp.blank) {
+      return;
+    }
+    const problems = cloneDeep(this.state.problems);
+    problems[problemIdx].response.splice(respIdx, 0, {
+      text: '',
+      blank: true,
+    });
+    const nextResp = problems[problemIdx].response[respIdx + 1];
+    if (!nextResp) {
+      problems[problemIdx].response.splice(respIdx + 1, 0, {
+        text: '',
+        blank: false,
+      });
+    }
+    this.setState({ problems });
+  }
+
+  moveProblem(dragIndex, hoverIndex) {
+    // const problems = cloneDeep(this.state.problems);
+    // const dragProblem = problems.splice(dragIndex, 1)[0];
+    // problems.splice(hoverIndex, 0, dragProblem);
+    // this.setState({ problems });
+
+    const { problems } = this.state;
+    const dragProblem = problems[dragIndex];
+    dragProblem.opaque = true;
+    this.setState(update(this.state, {
+      problems: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragProblem],
+        ],
+      },
+    }));
+  }
+
+  moveBlank(dragIndex, hoverIndex, problemIdx) {
+    // If user tries to move last blank to space after last response text,
+    // don't move
+    if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].response.length) return;
+    const problems = cloneDeep(this.state.problems);
+    const response = problems[problemIdx].response;
+    const dragBlank = response.splice(dragIndex, 1)[0];
+    response.splice(hoverIndex, 0, dragBlank);
+    if (dragIndex > 0) {
+      // Combine the response text that followed the blank with the text
+      // that came before the blank. Second if condition checks if there
+      // were text, because there weren't, it messes up placeholder text.
+      if (response[dragIndex + 1].text) {
+        response[dragIndex].text += ' ' + response.splice(dragIndex + 1, 1)[0].text;
+      } else {
+        response.splice(dragIndex + 1, 1);
+      }
+    }
+    // if hoverIndex < dragIndex
+    if (dragIndex === 0 && !response[hoverIndex + 1]) {
+      response.push ({
+        text: '',
+        blank: false
+      });
+    }
+    this.setState({ problems });
+  }
+
   removeBlank(problemIdx, respIdx) {
     return (event) => {
       event.preventDefault();
@@ -246,29 +250,8 @@ class NewDocForm extends React.Component {
       if (respIdx > 0) {
         // Combine the response text that followed the blank with the text
         // that came before the blank:
-        response[respIdx -1].text += ' ' + response.splice(respIdx, 1)[0].text;
+        response[respIdx - 1].text += ' ' + response.splice(respIdx, 1)[0].text;
       }
-      this.setState({ problems });
-    };
-  }
-
-  addBlank(problemIdx, respIdx, pos) {
-    return (event) => {
-      event.preventDefault();
-      const problems = cloneDeep(this.state.problems);
-      if (pos === 'post') {
-        problems[problemIdx].response.splice([respIdx + 1], 0,
-          {
-            text: '',
-            blank: false
-          });
-      }
-      problems[problemIdx].response.splice([respIdx + 1], 0,
-        {
-          text: '',
-          blank: true
-        });
-
       this.setState({ problems });
     };
   }
@@ -282,7 +265,9 @@ class NewDocForm extends React.Component {
           text: '',
           blank: false
         }
+
       ],
+      opaque: true
     };
     const problems = cloneDeep(this.state.problems);
     problems.splice(idx, 0, problem);
@@ -314,6 +299,18 @@ class NewDocForm extends React.Component {
         problems
       };
     });
+  }
+
+  removeProblem(idx) {
+    const problems = cloneDeep(this.state.problems);
+    problems.splice(idx, 1);
+    this.setState({ problems });
+  }
+
+  makeProbVisible(idx) {
+    const problems = cloneDeep(this.state.problems);
+    problems[idx].opaque = false;
+    this.setState({ problems });
   }
 
   handleInput() {

@@ -9,9 +9,18 @@ const newProblemSource = {
   beginDrag(props) {
     return {
       id: props.id,
-      index: props.index,
+      index: null,
     };
   },
+
+  endDrag(props, monitor) {
+    if (!monitor.didDrop() && monitor.getItem().index !== null) {
+      props.removeProblem(monitor.getItem().index);
+    }
+    if (monitor.didDrop()) {
+      props.makeProbVisible(monitor.getItem().index);
+    }
+  }
 };
 
 class NewProblem extends React.Component {

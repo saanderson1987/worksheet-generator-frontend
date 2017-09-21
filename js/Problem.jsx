@@ -13,6 +13,10 @@ const problemSource = {
       index: props.index,
     };
   },
+
+  endDrag(props, monitor) {
+    props.makeProbVisible(monitor.getItem().index);
+  }
 };
 
 const problemTarget = {
@@ -54,13 +58,8 @@ const problemTarget = {
 
 const newProblemTarget = {
   hover(props, monitor, component) {
-    // const dragIndex = monitor.getItem().index;
+    const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
-
-    // if (dragIndex === hoverIndex) {
-    //   return;
-    // }
-
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -68,33 +67,31 @@ const newProblemTarget = {
     const clientOffset = monitor.getClientOffset();
 
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    // if dragIndex === 0 , => false
+    if (dragIndex !== null) {
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
 
-    // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-    //   return;
-    // }
-
-    // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-    //   return;
-    // }
-
-    // if (hoverClientY < hoverMiddleY) {
-    //   return;
-    // }
-    //
-    // if (hoverClientY > hoverMiddleY) {
-    //   return;
-    // }
-    debugger;
-
-    props.addNewProblem(hoverIndex);
-    // monitor.getItem().index = hoverIndex;
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      props.moveProblem(dragIndex, hoverIndex);
+    }
+    else {
+      props.addNewProblem(hoverIndex);
+    }
+    monitor.getItem().index = hoverIndex;
   },
 };
 
 class Problem extends React.Component {
   render(){
-    const { isDragging, connectDragSource, connectDropTarget, connectAnotherDropTarget } = this.props;
-    const opacity = isDragging ? 0 : 1;
+    const { isDragging, connectDragSource, connectDropTarget, connectAnotherDropTarget, opaque } = this.props;
+    const opacity = isDragging || opaque ? 0 : 1;
 
     return connectDragSource(connectDropTarget(connectAnotherDropTarget(
       <div style={{opacity}} className='problem'>
