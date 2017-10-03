@@ -20,7 +20,6 @@ const responseTarget = {
     if (hoverClientX > hoverMiddleX) {
       hoverIndex ++;
     }
-
     if (dragIndex !== null) {
       if (dragIndex === hoverIndex) {
         return;
@@ -31,13 +30,14 @@ const responseTarget = {
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
-      props.moveBlank(dragIndex, hoverIndex, problemIdx);
+      console.log(dragIndex, hoverIndex);
+      monitor.getItem().index = props.moveBlank(dragIndex, hoverIndex, problemIdx, monitor.getItem);
     } else {
+      console.log(dragIndex, hoverIndex);
       props.dropBlank(problemIdx, hoverIndex);
+      monitor.getItem().index = hoverIndex;
     }
 
-    monitor.getItem().index = hoverIndex;
-    console.log(dragIndex, hoverIndex);
   },
 };
 

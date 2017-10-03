@@ -42697,10 +42697,15 @@ var NewDocForm = function (_React$Component) {
     }
   }, {
     key: 'moveBlank',
-    value: function moveBlank(dragIndex, hoverIndex, problemIdx) {
+    value: function moveBlank(dragIndex, hoverIndex, problemIdx, dragItem) {
       // If user tries to move last blank to space after last response text,
       // don't move
-      if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].response.length) return;
+      if (hoverIndex - dragIndex === 1) {
+        return dragIndex;
+      }
+      if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].response.length) {
+        return dragIndex;
+      }
       var problems = (0, _lodash.cloneDeep)(this.state.problems);
       var response = problems[problemIdx].response;
       var dragBlank = response.splice(dragIndex, 1)[0];
@@ -42715,7 +42720,6 @@ var NewDocForm = function (_React$Component) {
           response.splice(dragIndex + 1, 1);
         }
       }
-      // if hoverIndex < dragIndex
       if (dragIndex === 0 && !response[hoverIndex + 1]) {
         response.push({
           text: '',
@@ -42723,6 +42727,9 @@ var NewDocForm = function (_React$Component) {
         });
       }
       this.setState({ problems: problems });
+      var newIndex = problems[problemIdx].response.indexOf(dragBlank);
+      console.log(newIndex);
+      return newIndex;
     }
   }, {
     key: 'removeBlank',
@@ -50295,7 +50302,6 @@ var responseTarget = {
     if (hoverClientX > hoverMiddleX) {
       hoverIndex++;
     }
-
     if (dragIndex !== null) {
       if (dragIndex === hoverIndex) {
         return;
@@ -50306,13 +50312,13 @@ var responseTarget = {
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
-      props.moveBlank(dragIndex, hoverIndex, problemIdx);
+      console.log(dragIndex, hoverIndex);
+      monitor.getItem().index = props.moveBlank(dragIndex, hoverIndex, problemIdx, monitor.getItem);
     } else {
+      console.log(dragIndex, hoverIndex);
       props.dropBlank(problemIdx, hoverIndex);
+      monitor.getItem().index = hoverIndex;
     }
-
-    monitor.getItem().index = hoverIndex;
-    console.log(dragIndex, hoverIndex);
   }
 };
 
