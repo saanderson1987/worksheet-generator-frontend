@@ -42563,11 +42563,6 @@ var NewDocForm = function (_React$Component) {
               'form',
               null,
               this.renderProblems(),
-              _react2.default.createElement(
-                'button',
-                { onClick: this.addProblem },
-                'Add Problem'
-              ),
               JSON.stringify(this.state)
             )
           ),

@@ -87,7 +87,6 @@ class NewDocForm extends React.Component {
             </h3>
             <form >
               { this.renderProblems() }
-              <button onClick={ this.addProblem }>Add Problem</button>
               { JSON.stringify(this.state) }
             </form>
           </div>
