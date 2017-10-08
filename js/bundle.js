@@ -30217,6 +30217,8 @@ var newProblemTarget = {
   }
 };
 
+var newBlankTarget = {};
+
 var Problem = function (_React$Component) {
   _inherits(Problem, _React$Component);
 
@@ -30227,6 +30229,15 @@ var Problem = function (_React$Component) {
   }
 
   _createClass(Problem, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // Remove new blank if new blank drag item leaves problem and reset its index.
+      if (nextProps.isNewBlankOver !== this.props.isNewBlankOver && !nextProps.isNewBlankOver && this.props.newBlank.index !== null && !nextProps.didNewBlankDrop) {
+        this.props.removeBlank(this.props.index, this.props.newBlank.index);
+        this.props.newBlank.index = null;
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -30234,15 +30245,16 @@ var Problem = function (_React$Component) {
           connectDragSource = _props.connectDragSource,
           connectDropTarget = _props.connectDropTarget,
           connectAnotherDropTarget = _props.connectAnotherDropTarget,
+          connectNewBlankDropTarget = _props.connectNewBlankDropTarget,
           opaque = _props.opaque;
 
       var opacity = isDragging || opaque ? 0 : 1;
 
-      return connectDragSource(connectDropTarget(connectAnotherDropTarget(_react2.default.createElement(
+      return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(_react2.default.createElement(
         'div',
         { style: { opacity: opacity }, className: 'problem' },
         this.props.children
-      ))));
+      )))));
     }
   }]);
 
@@ -30261,6 +30273,13 @@ exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(_ItemTypes2.defaul
 }), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWPROBLEM, newProblemTarget, function (connect) {
   return {
     connectAnotherDropTarget: connect.dropTarget()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, newBlankTarget, function (connect, monitor) {
+  return {
+    connectNewBlankDropTarget: connect.dropTarget(),
+    isNewBlankOver: monitor.isOver(),
+    didNewBlankDrop: monitor.didDrop(),
+    newBlank: monitor.getItem()
   };
 }))(Problem);
 
@@ -42478,6 +42497,7 @@ var NewDocForm = function (_React$Component) {
     _this.makeProbVisible = _this.makeProbVisible.bind(_this);
     _this.dropBlank = _this.dropBlank.bind(_this);
     _this.moveBlank = _this.moveBlank.bind(_this);
+    _this.removeBlank = _this.removeBlank.bind(_this);
     _this.removeProblem = _this.removeProblem.bind(_this);
     _this.makeProbVisible = _this.makeProbVisible.bind(_this);
     _this.state = {
@@ -42514,7 +42534,6 @@ var NewDocForm = function (_React$Component) {
   _createClass(NewDocForm, [{
     key: 'render',
     value: function render() {
-      // debugger;
       return _react2.default.createElement(
         'div',
         null,
@@ -42582,7 +42601,8 @@ var NewDocForm = function (_React$Component) {
             addNewProblem: _this2.addNewProblem,
             makeProbVisible: _this2.makeProbVisible,
             question: problem.question,
-            opaque: problem.opaque
+            opaque: problem.opaque,
+            removeBlank: _this2.removeBlank
           },
           _react2.default.createElement(
             'div',
@@ -42628,7 +42648,9 @@ var NewDocForm = function (_React$Component) {
             }),
             _react2.default.createElement(
               'button',
-              { className: 'modify-blank remove-blank', onClick: _this3.removeBlank(problemIdx, idx) },
+              { className: 'modify-blank remove-blank', onClick: function onClick(event) {
+                  return _this3.removeBlank(problemIdx, idx);
+                } },
               '-'
             )
           );
@@ -42659,6 +42681,7 @@ var NewDocForm = function (_React$Component) {
   }, {
     key: 'dropBlank',
     value: function dropBlank(problemIdx, respIdx) {
+      // Don't allow blank to be dropped on a spot right after another blank
       var prevResp = this.state.problems[problemIdx].response[respIdx - 1];
       if (prevResp && prevResp.blank) {
         return;
@@ -42703,6 +42726,11 @@ var NewDocForm = function (_React$Component) {
       if (hoverIndex - dragIndex === 1) {
         return dragIndex;
       }
+      // Don't allow blank to be moved to a spot right after another blank
+      var prevResp = this.state.problems[problemIdx].response[hoverIndex - 1];
+      if (prevResp && prevResp.blank) {
+        return;
+      }
       if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].response.length) {
         return dragIndex;
       }
@@ -42712,7 +42740,7 @@ var NewDocForm = function (_React$Component) {
       response.splice(hoverIndex, 0, dragBlank);
       if (dragIndex > 0) {
         // Combine the response text that followed the blank with the text
-        // that came before the blank. Second if condition checks if there
+        // that came before the blank. Inner if condition checks if there
         // were text, because there weren't, it messes up placeholder text.
         if (response[dragIndex + 1].text) {
           response[dragIndex].text += ' ' + response.splice(dragIndex + 1, 1)[0].text;
@@ -42734,20 +42762,21 @@ var NewDocForm = function (_React$Component) {
   }, {
     key: 'removeBlank',
     value: function removeBlank(problemIdx, respIdx) {
-      var _this4 = this;
-
-      return function (event) {
-        event.preventDefault();
-        var problems = (0, _lodash.cloneDeep)(_this4.state.problems);
-        var response = problems[problemIdx].response;
-        response.splice(respIdx, 1);
-        if (respIdx > 0) {
-          // Combine the response text that followed the blank with the text
-          // that came before the blank:
+      event.preventDefault();
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      var response = problems[problemIdx].response;
+      response.splice(respIdx, 1);
+      if (respIdx > 0) {
+        // Combine the response text that followed the blank with the text
+        // that came before the blank. Inner if condition checks if there
+        // were text, because there weren't, it messes up placeholder text.
+        if (respIdx.text) {
           response[respIdx - 1].text += ' ' + response.splice(respIdx, 1)[0].text;
+        } else {
+          response.splice(respIdx, 1);
         }
-        _this4.setState({ problems: problems });
-      };
+      }
+      this.setState({ problems: problems });
     }
   }, {
     key: 'addNewProblem',
@@ -42808,36 +42837,36 @@ var NewDocForm = function (_React$Component) {
   }, {
     key: 'handleInput',
     value: function handleInput() {
-      var _this5 = this;
+      var _this4 = this;
 
       return function (event) {
         var name = event.target.name;
         var value = event.target.value;
-        _this5.setState(_defineProperty({}, name, value));
+        _this4.setState(_defineProperty({}, name, value));
       };
     }
   }, {
     key: 'handleQuestionInput',
     value: function handleQuestionInput(problemIdx) {
-      var _this6 = this;
+      var _this5 = this;
 
       return function (event) {
         var value = event.target.value;
-        var problems = (0, _lodash.cloneDeep)(_this6.state.problems);
+        var problems = (0, _lodash.cloneDeep)(_this5.state.problems);
         problems[problemIdx].question = value;
-        _this6.setState({ problems: problems });
+        _this5.setState({ problems: problems });
       };
     }
   }, {
     key: 'handleResponseInput',
     value: function handleResponseInput(problemIdx, respIdx) {
-      var _this7 = this;
+      var _this6 = this;
 
       return function (event) {
         var value = event.target.value;
-        var problems = (0, _lodash.cloneDeep)(_this7.state.problems);
+        var problems = (0, _lodash.cloneDeep)(_this6.state.problems);
         problems[problemIdx].response[respIdx].text = value;
-        _this7.setState({ problems: problems });
+        _this6.setState({ problems: problems });
       };
     }
   }]);
@@ -50018,10 +50047,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var newBlankSource = {
-  beginDrag: function beginDrag(props) {
+  beginDrag: function beginDrag(props, monitor) {
     return {
       id: props.id,
-      index: null
+      index: null,
+      dragging: monitor.isDragging()
     };
   }
 };

@@ -6,10 +6,11 @@ import ItemTypes from './ItemTypes';
 import { flow } from 'lodash';
 
 const newBlankSource = {
-  beginDrag(props) {
+  beginDrag(props, monitor) {
     return {
       id: props.id,
       index: null,
+      dragging: monitor.isDragging(),
     };
   },
 

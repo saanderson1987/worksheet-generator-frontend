@@ -26,6 +26,7 @@ class NewDocForm extends React.Component {
     this.makeProbVisible = this.makeProbVisible.bind(this);
     this.dropBlank = this.dropBlank.bind(this);
     this.moveBlank = this.moveBlank.bind(this);
+    this.removeBlank = this.removeBlank.bind(this);
     this.removeProblem = this.removeProblem.bind(this);
     this.makeProbVisible = this.makeProbVisible.bind(this);
     this.state = {
@@ -70,7 +71,6 @@ class NewDocForm extends React.Component {
 
 
   render() {
-    // debugger;
     return (
       <div>
         <h3>New Document Form</h3>
@@ -113,6 +113,7 @@ class NewDocForm extends React.Component {
           makeProbVisible={this.makeProbVisible}
           question={problem.question}
           opaque={problem.opaque}
+          removeBlank={this.removeBlank}
         >
           <div>
             { idx + 1 }.{' '}
@@ -145,7 +146,7 @@ class NewDocForm extends React.Component {
               value={ problem.response[idx].text }
               onChange={ this.handleResponseInput(problemIdx, idx) }
             />
-            <button className='modify-blank remove-blank' onClick={ this.removeBlank(problemIdx, idx) }>-</button>
+            <button className='modify-blank remove-blank' onClick={ (event) => this.removeBlank(problemIdx, idx) }>-</button>
           </div>
 
         );
@@ -175,6 +176,7 @@ class NewDocForm extends React.Component {
   }
 
   dropBlank(problemIdx, respIdx) {
+    // Don't allow blank to be dropped on a spot right after another blank
     const prevResp = this.state.problems[problemIdx].response[respIdx - 1];
     if (prevResp && prevResp.blank) {
       return;
@@ -219,6 +221,11 @@ class NewDocForm extends React.Component {
     if (hoverIndex - dragIndex === 1) {
       return dragIndex;
     }
+    // Don't allow blank to be moved to a spot right after another blank
+    const prevResp = this.state.problems[problemIdx].response[hoverIndex - 1];
+    if (prevResp && prevResp.blank) {
+      return;
+    }
     if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].response.length) {
       return dragIndex;
     }
@@ -228,7 +235,7 @@ class NewDocForm extends React.Component {
     response.splice(hoverIndex, 0, dragBlank);
     if (dragIndex > 0) {
       // Combine the response text that followed the blank with the text
-      // that came before the blank. Second if condition checks if there
+      // that came before the blank. Inner if condition checks if there
       // were text, because there weren't, it messes up placeholder text.
       if (response[dragIndex + 1].text) {
         response[dragIndex].text += ' ' + response.splice(dragIndex + 1, 1)[0].text;
@@ -249,18 +256,21 @@ class NewDocForm extends React.Component {
   }
 
   removeBlank(problemIdx, respIdx) {
-    return (event) => {
       event.preventDefault();
       const problems = cloneDeep(this.state.problems);
       const response = problems[problemIdx].response;
       response.splice(respIdx, 1);
       if (respIdx > 0) {
         // Combine the response text that followed the blank with the text
-        // that came before the blank:
-        response[respIdx - 1].text += ' ' + response.splice(respIdx, 1)[0].text;
+        // that came before the blank. Inner if condition checks if there
+        // were text, because there weren't, it messes up placeholder text.
+        if (respIdx.text) {
+          response[respIdx - 1].text += ' ' + response.splice(respIdx, 1)[0].text;
+        } else {
+          response.splice(respIdx, 1);
+        }
       }
       this.setState({ problems });
-    };
   }
 
   addNewProblem(idx) {

@@ -88,16 +88,34 @@ const newProblemTarget = {
   },
 };
 
+const newBlankTarget = {
+
+};
+
 class Problem extends React.Component {
+
+  componentWillReceiveProps(nextProps) {
+    // Remove new blank if new blank drag item leaves problem and reset its index.
+    if (nextProps.isNewBlankOver !== this.props.isNewBlankOver &&
+      !nextProps.isNewBlankOver && this.props.newBlank.index !== null &&
+      !nextProps.didNewBlankDrop) {
+      this.props.removeBlank(this.props.index, this.props.newBlank.index);
+      this.props.newBlank.index = null;
+    }
+  }
+
+
   render(){
-    const { isDragging, connectDragSource, connectDropTarget, connectAnotherDropTarget, opaque } = this.props;
+    const { isDragging, connectDragSource, connectDropTarget,
+      connectAnotherDropTarget, connectNewBlankDropTarget,opaque } =
+      this.props;
     const opacity = isDragging || opaque ? 0 : 1;
 
-    return connectDragSource(connectDropTarget(connectAnotherDropTarget(
+    return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(
       <div style={{opacity}} className='problem'>
         {this.props.children}
       </div>
-    )));
+    ))));
   }
 }
 
@@ -111,5 +129,11 @@ export default flow(
   })),
   DropTarget(ItemTypes.NEWPROBLEM, newProblemTarget, connect => ({
     connectAnotherDropTarget: connect.dropTarget(),
+  })),
+  DropTarget(ItemTypes.NEWBLANK, newBlankTarget, (connect, monitor) => ({
+    connectNewBlankDropTarget: connect.dropTarget(),
+    isNewBlankOver: monitor.isOver(),
+    didNewBlankDrop: monitor.didDrop(),
+    newBlank: monitor.getItem()
   }))
 )(Problem);
