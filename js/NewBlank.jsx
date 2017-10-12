@@ -14,15 +14,7 @@ const newBlankSource = {
     };
   },
 
-  // endDrag(props, monitor) {
-  //   const item = monitor.getItem();
-  //   const dropResult = monitor.getDropResult();
-  //   if (dropResult) {
-  //     props.drop(item.type, dropResult.type);
-  //   }
-  // }
 };
-
 
 class NewBlank extends React.Component {
   render(){
@@ -32,6 +24,7 @@ class NewBlank extends React.Component {
       <div style={{margin: '5px', cursor: 'move'}}>
         <input
           className='new-form-answer-input'
+          style={{cursor: 'move'}}
           disabled
           placeholder='New blank'
         />

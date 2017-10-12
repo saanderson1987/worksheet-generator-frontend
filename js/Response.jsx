@@ -1,61 +1,52 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
-import { DropTarget } from 'react-dnd';
-import ItemTypes from './ItemTypes';
-
-const responseTarget = {
-  hover(props, monitor, component) {
-    const dragIndex = monitor.getItem().index;
-    const problemIdx = props.problemIdx;
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-
-    const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-
-    const clientOffset = monitor.getClientOffset();
-
-    const hoverClientX = clientOffset.x - hoverBoundingRect.left;
-
-    let hoverIndex = props.respIdx;
-    if (hoverClientX > hoverMiddleX) {
-      hoverIndex ++;
-    }
-    if (dragIndex !== null) {
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-        return;
-      }
-      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-        return;
-      }
-      console.log(dragIndex, hoverIndex);
-      monitor.getItem().index = props.moveBlank(dragIndex, hoverIndex, problemIdx, monitor.getItem);
-    } else {
-      console.log(dragIndex, hoverIndex);
-      props.dropBlank(problemIdx, hoverIndex);
-      monitor.getItem().index = hoverIndex;
-    }
-
-  },
-};
+import ResponsePart from './ResponsePart.jsx';
+import AutosizeInput from 'react-input-autosize';
 
 class Response extends React.Component {
   render() {
-    const { connectDropTarget, opaque } = this.props;
-    // const isActive = canDrop && isOver;
-    const opacity = opaque ? 0 : 1;
-    return connectDropTarget(
-      <div style={{opacity}} className='response'>
-        {this.props.children}
+    return (
+      <div className='new-form-responses'>
+        {
+          this.props.problem.response.map( (part, idx) => {
+            if (part.blank) {
+              return (
+                <div key={ part.id } >
+                  <input
+                    placeholder="Answer blank"
+                    className='new-form-answer-input'
+                    value={ this.props.problem.response[idx].text }
+                    onChange={ this.props.handleResponseInput(this.props.problemIdx, idx) }
+                  />
+                  <button className='modify-blank remove-blank' onClick={ (event) => this.props.removeBlank(this.props.problemIdx, idx) }>-</button>
+                </div>
+              );
+            } else {
+              const placeholder = idx === 0 ? 'Response' : '...continue response';
+              const minWidth = idx === 0 ? '' : '10';
+
+              return (
+                <ResponsePart
+                  key={ part.id }
+                  problemIdx={this.props.problemIdx}
+                  respIdx={idx}
+                  dropBlank={this.props.dropBlank}
+                  moveBlank={this.props.moveBlank}
+                >
+                  <AutosizeInput
+                    placeholder={ placeholder }
+                    minWidth={ minWidth }
+                    inputClassName='new-form-response-input'
+                    value={ this.props.problem.response[idx].text }
+                    onChange={ this.props.handleResponseInput(this.props.problemIdx, idx) }
+                  />
+                </ResponsePart>
+              );
+            }
+          })
+        }
       </div>
     );
   }
 }
 
-export default DropTarget(ItemTypes.NEWBLANK, responseTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  // isOver: monitor.isOver(),
-  // canDrop: monitor.canDrop(),
-}))(Response);
+export default Response;

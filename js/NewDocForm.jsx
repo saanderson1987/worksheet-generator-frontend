@@ -8,19 +8,18 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import update from 'react/lib/update';
 import shortid from 'shortid';
 
+import Problems from './Problems.jsx';
 import Problem from './Problem.jsx';
-import NewBlank from './NewBlank.jsx';
-import NewProblem from './NewProblem.jsx';
-import Box from './Box.jsx';
 import Response from './Response.jsx';
+import Toolbox from './Toolbox.jsx';
 
 class NewDocForm extends React.Component {
   constructor(props) {
     super(props);
-    this.handleInput = this.handleInput.bind(this);
+    this.updateDoc = this.updateDoc.bind(this);
+    this.handleDocNameInput = this.handleDocNameInput.bind(this);
     this.handleQuestionInput = this.handleQuestionInput.bind(this);
     this.handleResponseInput = this.handleResponseInput.bind(this);
-    this.addProblem = this.addProblem.bind(this);
     this.moveProblem = this.moveProblem.bind(this);
     this.addNewProblem = this.addNewProblem.bind(this);
     this.makeProbVisible = this.makeProbVisible.bind(this);
@@ -31,41 +30,43 @@ class NewDocForm extends React.Component {
     this.makeProbVisible = this.makeProbVisible.bind(this);
     this.state = {
       docName: '',
-      problemCount: 3,
       problems: [
         {
           question: 'a',
-          id: '1',
+          id: shortid.generate(),
           response: [
             {
               text: '',
-              blank: false
+              blank: false,
+              id: shortid.generate()
             }
           ],
         },
         {
           question: 'b',
-          id: '2',
+          id: shortid.generate(),
           response: [
             {
               text: '',
-              blank: false
+              blank: false,
+              id: shortid.generate(),
+
             }
           ],
         },
         {
           question: 'c',
-          id: '3',
+          id: shortid.generate(),
           response: [
             {
               text: '',
-              blank: false
+              blank: false,
+              id: shortid.generate(),
             }
           ],
         },
       ],
       submitStatus: '',
-      boxes: [],
     };
   }
 
@@ -82,96 +83,30 @@ class NewDocForm extends React.Component {
                 placeholder='Document name   '
                 name='docName'
                 value={ this.state.docName }
-                onChange={ this.handleInput()}
+                onChange={ this.handleDocNameInput()}
               />
             </h3>
-            <form >
-              { this.renderProblems() }
-              { JSON.stringify(this.state) }
-            </form>
+            <Problems
+              problems={this.state.problems}
+              moveProblem={this.moveProblem}
+              addNewProblem={this.addNewProblem}
+              makeProbVisible={this.makeProbVisible}
+              removeBlank={this.removeBlank}
+              handleQuestionInput={this.handleQuestionInput}
+              handleResponseInput={this.handleResponseInput}
+              dropBlank={this.dropBlank}
+              moveBlank={this.moveBlank}
+            />
+            <button onClick={this.updateDoc}>Save Changes</button>
+            { JSON.stringify(this.state) }
           </div>
-          <div className='toolbox'>
-            <div>Toolbox</div>
-            <NewBlank id={shortid.generate()} drop={this.drop}/>
-            <NewProblem id={shortid.generate()} removeProblem={this.removeProblem} makeProbVisible={this.makeProbVisible} />
-          </div>
+          <Toolbox
+            removeProblem={this.removeProblem}
+            makeProbVisible={this.makeProbVisible}
+          />
         </div>
       </div>
     );
-  }
-
-  renderProblems() {
-    return this.state.problems.map( (problem, idx) => {
-      return(
-        <Problem
-          key={ shortid.generate() }
-          id={problem.id}
-          index={idx}
-          moveProblem={this.moveProblem}
-          addNewProblem={this.addNewProblem}
-          makeProbVisible={this.makeProbVisible}
-          question={problem.question}
-          opaque={problem.opaque}
-          removeBlank={this.removeBlank}
-        >
-          <div>
-            { idx + 1 }.{' '}
-            <input
-              placeholder='Question'
-              value={ this.state.problems[idx].question }
-              onChange={ this.handleQuestionInput(idx) }
-            />
-            <div>
-              <div className='new-form-responses'>
-                {this.renderResponse(idx)}
-              </div>
-            </div>
-          </div>
-        </Problem>
-      );
-    });
-  }
-
-  renderResponse(problemIdx) {
-    let problem = this.state.problems[problemIdx];
-    return problem.response.map( (part, idx) => {
-      if (part.blank) {
-        // const opacity = part.opaque ? 0 : 1;
-        return (
-          <div key={ shortid.generate() } >
-            <input
-              placeholder="Answer blank"
-              className='new-form-answer-input'
-              value={ problem.response[idx].text }
-              onChange={ this.handleResponseInput(problemIdx, idx) }
-            />
-            <button className='modify-blank remove-blank' onClick={ (event) => this.removeBlank(problemIdx, idx) }>-</button>
-          </div>
-
-        );
-      } else {
-        const placeholder = idx === 0 ? 'Response' : '...continue response';
-        const minWidth = idx === 0 ? '' : '10';
-
-        return (
-            <Response
-              key={ shortid.generate() }
-              problemIdx={problemIdx}
-              respIdx={idx}
-              dropBlank={this.dropBlank}
-              moveBlank={this.moveBlank}
-              >
-                <AutosizeInput
-                  placeholder={ placeholder }
-                  minWidth={ minWidth }
-                  inputClassName='new-form-response-input'
-                  value={ problem.response[idx].text }
-                  onChange={ this.handleResponseInput(problemIdx, idx) }
-                />
-              </Response>
-        );
-      }
-    });
   }
 
   dropBlank(problemIdx, respIdx) {
@@ -184,37 +119,20 @@ class NewDocForm extends React.Component {
     problems[problemIdx].response.splice(respIdx, 0, {
       text: '',
       blank: true,
+      id: shortid.generate(),
     });
     const nextResp = problems[problemIdx].response[respIdx + 1];
     if (!nextResp) {
       problems[problemIdx].response.splice(respIdx + 1, 0, {
         text: '',
         blank: false,
+        id: shortid.generate(),
       });
     }
     this.setState({ problems });
   }
 
-  moveProblem(dragIndex, hoverIndex) {
-    // const problems = cloneDeep(this.state.problems);
-    // const dragProblem = problems.splice(dragIndex, 1)[0];
-    // problems.splice(hoverIndex, 0, dragProblem);
-    // this.setState({ problems });
-
-    const { problems } = this.state;
-    const dragProblem = problems[dragIndex];
-    dragProblem.opaque = true;
-    this.setState(update(this.state, {
-      problems: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragProblem],
-        ],
-      },
-    }));
-  }
-
-  moveBlank(dragIndex, hoverIndex, problemIdx, dragItem) {
+  moveBlank(dragIndex, hoverIndex, problemIdx) {
     // If user tries to move last blank to space after last response text,
     // don't move
     if (hoverIndex - dragIndex === 1) {
@@ -245,7 +163,8 @@ class NewDocForm extends React.Component {
     if (dragIndex === 0 && !response[hoverIndex + 1]) {
       response.push ({
         text: '',
-        blank: false
+        blank: false,
+        id: shortid.generate(),
       });
     }
     this.setState({ problems });
@@ -263,7 +182,7 @@ class NewDocForm extends React.Component {
         // Combine the response text that followed the blank with the text
         // that came before the blank. Inner if condition checks if there
         // were text, because there weren't, it messes up placeholder text.
-        if (respIdx.text) {
+        if (response[respIdx].text) {
           response[respIdx - 1].text += ' ' + response.splice(respIdx, 1)[0].text;
         } else {
           response.splice(respIdx, 1);
@@ -272,48 +191,42 @@ class NewDocForm extends React.Component {
       this.setState({ problems });
   }
 
+  moveProblem(dragIndex, hoverIndex) {
+    // const problems = cloneDeep(this.state.problems);
+    // const dragProblem = problems.splice(dragIndex, 1)[0];
+    // problems.splice(hoverIndex, 0, dragProblem);
+    // this.setState({ problems });
+
+    const { problems } = this.state;
+    const dragProblem = problems[dragIndex];
+    dragProblem.opaque = true;
+    this.setState(update(this.state, {
+      problems: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragProblem],
+        ],
+      },
+    }));
+  }
+
   addNewProblem(idx) {
     const problem = {
       question: '',
-      id: this.state.problemCount + 1,
+      id: shortid.generate(),
       response: [
         {
           text: '',
-          blank: false
+          blank: false,
+          id: shortid.generate(),
         }
-
       ],
       opaque: true
     };
     const problems = cloneDeep(this.state.problems);
     problems.splice(idx, 0, problem);
     this.setState( prevState => {
-      return {
-        problemCount: prevState.problemCount ++,
-        problems
-      };
-    });
-  }
-
-  addProblem(event) {
-    event.preventDefault();
-    const problem = {
-      question: '',
-      id: this.state.problemCount + 1,
-      response: [
-        {
-          text: '',
-          blank: false
-        }
-      ],
-    };
-    const problems = cloneDeep(this.state.problems);
-    problems.push(problem);
-    this.setState( prevState => {
-      return {
-        problemCount: prevState.problemCount ++,
-        problems
-      };
+      return {problems};
     });
   }
 
@@ -329,7 +242,7 @@ class NewDocForm extends React.Component {
     this.setState({ problems });
   }
 
-  handleInput() {
+  handleDocNameInput() {
     return (event) => {
       const name = event.target.name;
       const value = event.target.value;
@@ -353,6 +266,22 @@ class NewDocForm extends React.Component {
       problems[problemIdx].response[respIdx].text = value;
       this.setState({ problems });
     };
+  }
+
+  updateDoc(event) {
+    event.preventDefault();
+    // const { docName, problems } = this.state;
+    // // make sure to grab the uneditable fields of the document so that
+    // // they are not erased with the update method. Update method replaces
+    // // the document if not mongo update modifiers are specified. It does
+    // // not replace the field _id.
+    // // They will probably be this.props.<whatever>
+    // Meteor.call('documents.upsert', { docName, problems },
+    //   (err, res) => {
+    //     const submitStatus = err ? 'Error, check console log' : 'SUCCESS!';
+    //     console.log(err);
+    //     this.setState({ submitStatus });
+    // });
   }
 
 }

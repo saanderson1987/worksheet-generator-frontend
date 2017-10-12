@@ -28,9 +28,9 @@ class NewProblem extends React.Component {
     const { isDragging, connectDragSource } = this.props;
 
     return connectDragSource(
-      <div className='problem'>
-          1. <input disabled placeholder='New Problem' />
-          <div><input disabled placeholder='Response' className='new-form-response-input' /></div>
+      <div className='problem' style={{cursor: 'move'}}>
+          1. <input style={{cursor: 'move'}} disabled placeholder='New Problem' />
+          <div><input style={{cursor: 'move'}} disabled placeholder='Response' className='new-form-response-input' /></div>
       </div>
     );
   }
