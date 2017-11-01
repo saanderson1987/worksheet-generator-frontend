@@ -6,7 +6,7 @@ import TextPieces from './TextPieces.jsx';
 class Problems extends React.Component {
   render() {
     return (
-      <div className='section'>
+      <div>
         {
           this.props.problems.map( (problem, idx) => {
             return(

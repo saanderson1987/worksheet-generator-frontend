@@ -1,15 +1,35 @@
-
-.new-doc-name {
-  font-size: 1.17em;
-}
-
-.new-doc-container {
+.problems-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .toolbox {
+  max-width: 225px;
   border: 1px solid black;
   margin-left: 20px;
+  position: relative;
+  top: -40px;
+}
+
+.toolbox > * {
+  padding: 8px 8px;
+}
+
+.toolbox-title {
+  text-align: center;
+  background-color: $light-blue;
+  color: $white;
+  font-weight: bold;
+}
+
+.toolbox-instructions {
+  background-color: $gray;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.tools {
+  margin: 0px 10px;
 }
 
 .new-form-text-piece-input {

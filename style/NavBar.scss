@@ -1,13 +1,13 @@
 $nav-text-color: $white;
 
 nav {
-  color: $nav-text-color;
+  color: $white;
 }
 
 .nav__row1 {
   display: flex;
   justify-content: space-between;
-  background-color: #1E4072;
+  background-color: $dark-blue;
   padding: 15px;
   align-items: center;
 }
@@ -18,7 +18,7 @@ nav {
 
 .nav__row2 {
   display: flex;
-  background-color: #467FD7;
+  background-color: $light-blue;
   // padding: 5px 0px;
 }
 

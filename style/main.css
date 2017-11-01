@@ -97,21 +97,42 @@ h1 {
 button {
   border: none;
   font: inherit;
-  padding: 10px 17px; }
+  padding: 10px 17px;
+  border: 1px solid #AAAAAA;
+  background-color: #E2E2E2; }
 
 .button_green {
   background-color: #3F9D24;
-  color: white; }
+  color: white;
+  border: none; }
 
-.new-doc-name {
-  font-size: 1.17em; }
-
-.new-doc-container {
-  display: flex; }
+.problems-container {
+  display: flex;
+  justify-content: space-between; }
 
 .toolbox {
+  max-width: 225px;
   border: 1px solid black;
-  margin-left: 20px; }
+  margin-left: 20px;
+  position: relative;
+  top: -40px; }
+
+.toolbox > * {
+  padding: 8px 8px; }
+
+.toolbox-title {
+  text-align: center;
+  background-color: #467FD7;
+  color: white;
+  font-weight: bold; }
+
+.toolbox-instructions {
+  background-color: #E2E2E2;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black; }
+
+.tools {
+  margin: 0px 10px; }
 
 .new-form-text-piece-input {
   border: 0;

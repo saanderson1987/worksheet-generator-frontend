@@ -107,13 +107,13 @@ class NewDocForm extends React.Component {
   render() {
     return (
       <div>
-        <div className='new-doc-container'>
-          <div className='new-doc-form'>
+        <div className='edit-doc-container'>
+          <div>
             <input
-              className='header-lg'
-              placeholder='Document name   '
               name='docName'
               value={ this.state.docName }
+              placeholder='Document name   '
+              className='header-lg'
               onChange={ this.handleInput()}
             />
             <Instructions
@@ -124,8 +124,8 @@ class NewDocForm extends React.Component {
             <div className='section'>
               <div>
                 <input
-                  type='checkbox'
                   name='includeWordBank'
+                  type='checkbox'
                   checked={this.state.includeWordBank}
                   onChange={this.handleInput()}
                 />
@@ -135,46 +135,48 @@ class NewDocForm extends React.Component {
                 Word bank will be automatically populated using the words in the blanks
               </div>
             </div>
-            <Problems
-              problems={this.state.problems}
-              moveProblem={this.moveProblem}
-              addNewProblem={this.addNewProblem}
-              makeProbVisible={this.makeProbVisible}
-              removeBlank={this.removeBlank}
-              handleQuestionInput={this.handleQuestionInput}
-              handleTextPiecesInput={this.handleTextPiecesInput}
-              dropBlank={this.dropBlank}
-              moveBlank={this.moveBlank}
-            />
+            <div className='section problems-container'>
+              <Problems
+                problems={this.state.problems}
+                moveProblem={this.moveProblem}
+                addNewProblem={this.addNewProblem}
+                makeProbVisible={this.makeProbVisible}
+                removeBlank={this.removeBlank}
+                handleQuestionInput={this.handleQuestionInput}
+                handleTextPiecesInput={this.handleTextPiecesInput}
+                dropBlank={this.dropBlank}
+                moveBlank={this.moveBlank}
+              />
+              <Toolbox
+                removeProblem={this.removeProblem}
+                makeProbVisible={this.makeProbVisible}
+              />
+            </div>
             <ButtonRow>
               <button>Cancel</button>
               <button className='button_green' onClick={this.updateDoc}>Save Changes</button>
             </ButtonRow>
           </div>
-          <Toolbox
-            removeProblem={this.removeProblem}
-            makeProbVisible={this.makeProbVisible}
-          />
         </div>
       </div>
     );
   }
 
-  dropBlank(problemIdx, respIdx) {
+  dropBlank(problemIdx, textPieceIdx) {
     // Don't allow blank to be dropped on a spot right after another blank
-    const prevResp = this.state.problems[problemIdx].textPieces[respIdx - 1];
+    const prevResp = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
     if (prevResp && prevResp.blank) {
       return;
     }
     const problems = cloneDeep(this.state.problems);
-    problems[problemIdx].textPieces.splice(respIdx, 0, {
+    problems[problemIdx].textPieces.splice(textPieceIdx, 0, {
       text: '',
       blank: true,
       id: shortid.generate(),
     });
-    const nextResp = problems[problemIdx].textPieces[respIdx + 1];
+    const nextResp = problems[problemIdx].textPieces[textPieceIdx + 1];
     if (!nextResp) {
-      problems[problemIdx].textPieces.splice(respIdx + 1, 0, {
+      problems[problemIdx].textPieces.splice(textPieceIdx + 1, 0, {
         text: '',
         blank: false,
         id: shortid.generate(),
@@ -224,19 +226,19 @@ class NewDocForm extends React.Component {
     return newIndex;
   }
 
-  removeBlank(problemIdx, respIdx) {
+  removeBlank(problemIdx, textPieceIdx) {
       event.preventDefault();
       const problems = cloneDeep(this.state.problems);
       const textPieces = problems[problemIdx].textPieces;
-      textPieces.splice(respIdx, 1);
-      if (respIdx > 0) {
+      textPieces.splice(textPieceIdx, 1);
+      if (textPieceIdx > 0) {
         // Combine the textPiece text that followed the blank with the textPiece text
         // that came before the blank. Inner if condition checks if there
         // were text, because there weren't, it messes up placeholder text.
-        if (textPieces[respIdx].text) {
-          textPieces[respIdx - 1].text += ' ' + textPieces.splice(respIdx, 1)[0].text;
+        if (textPieces[textPieceIdx].text) {
+          textPieces[textPieceIdx - 1].text += ' ' + textPieces.splice(textPieceIdx, 1)[0].text;
         } else {
-          textPieces.splice(respIdx, 1);
+          textPieces.splice(textPieceIdx, 1);
         }
       }
       this.setState({ problems });
@@ -311,11 +313,11 @@ class NewDocForm extends React.Component {
       };
   }
 
-  handleTextPiecesInput(problemIdx, respIdx) {
+  handleTextPiecesInput(problemIdx, textPieceIdx) {
     return (event) => {
       const value = event.target.value;
       const problems = cloneDeep(this.state.problems);
-      problems[problemIdx].textPieces[respIdx].text = value;
+      problems[problemIdx].textPieces[textPieceIdx].text = value;
       this.setState({ problems });
     };
   }

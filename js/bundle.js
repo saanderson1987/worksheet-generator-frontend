@@ -31442,7 +31442,7 @@ var _EditDocForm = __webpack_require__(251);
 
 var _EditDocForm2 = _interopRequireDefault(_EditDocForm);
 
-var _DocForm = __webpack_require__(381);
+var _DocForm = __webpack_require__(382);
 
 var _DocForm2 = _interopRequireDefault(_DocForm);
 
@@ -31452,11 +31452,11 @@ var _shortid = __webpack_require__(56);
 
 var _shortid2 = _interopRequireDefault(_shortid);
 
-var _NavBar = __webpack_require__(385);
+var _NavBar = __webpack_require__(386);
 
 var _NavBar2 = _interopRequireDefault(_NavBar);
 
-var _shuffle = __webpack_require__(386);
+var _shuffle = __webpack_require__(387);
 
 var _shuffle2 = _interopRequireDefault(_shuffle);
 
@@ -42817,11 +42817,11 @@ var _Problems = __webpack_require__(375);
 
 var _Problems2 = _interopRequireDefault(_Problems);
 
-var _ButtonRow = __webpack_require__(387);
+var _ButtonRow = __webpack_require__(378);
 
 var _ButtonRow2 = _interopRequireDefault(_ButtonRow);
 
-var _Toolbox = __webpack_require__(378);
+var _Toolbox = __webpack_require__(379);
 
 var _Toolbox2 = _interopRequireDefault(_Toolbox);
 
@@ -42927,15 +42927,15 @@ var NewDocForm = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'new-doc-container' },
+          { className: 'edit-doc-container' },
           _react2.default.createElement(
             'div',
-            { className: 'new-doc-form' },
+            null,
             _react2.default.createElement('input', {
-              className: 'header-lg',
-              placeholder: 'Document name   ',
               name: 'docName',
               value: this.state.docName,
+              placeholder: 'Document name   ',
+              className: 'header-lg',
               onChange: this.handleInput()
             }),
             _react2.default.createElement(_Instructions2.default, {
@@ -42950,8 +42950,8 @@ var NewDocForm = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement('input', {
-                  type: 'checkbox',
                   name: 'includeWordBank',
+                  type: 'checkbox',
                   checked: this.state.includeWordBank,
                   onChange: this.handleInput()
                 }),
@@ -42963,17 +42963,25 @@ var NewDocForm = function (_React$Component) {
                 'Word bank will be automatically populated using the words in the blanks'
               )
             ),
-            _react2.default.createElement(_Problems2.default, {
-              problems: this.state.problems,
-              moveProblem: this.moveProblem,
-              addNewProblem: this.addNewProblem,
-              makeProbVisible: this.makeProbVisible,
-              removeBlank: this.removeBlank,
-              handleQuestionInput: this.handleQuestionInput,
-              handleTextPiecesInput: this.handleTextPiecesInput,
-              dropBlank: this.dropBlank,
-              moveBlank: this.moveBlank
-            }),
+            _react2.default.createElement(
+              'div',
+              { className: 'section problems-container' },
+              _react2.default.createElement(_Problems2.default, {
+                problems: this.state.problems,
+                moveProblem: this.moveProblem,
+                addNewProblem: this.addNewProblem,
+                makeProbVisible: this.makeProbVisible,
+                removeBlank: this.removeBlank,
+                handleQuestionInput: this.handleQuestionInput,
+                handleTextPiecesInput: this.handleTextPiecesInput,
+                dropBlank: this.dropBlank,
+                moveBlank: this.moveBlank
+              }),
+              _react2.default.createElement(_Toolbox2.default, {
+                removeProblem: this.removeProblem,
+                makeProbVisible: this.makeProbVisible
+              })
+            ),
             _react2.default.createElement(
               _ButtonRow2.default,
               null,
@@ -42988,31 +42996,27 @@ var NewDocForm = function (_React$Component) {
                 'Save Changes'
               )
             )
-          ),
-          _react2.default.createElement(_Toolbox2.default, {
-            removeProblem: this.removeProblem,
-            makeProbVisible: this.makeProbVisible
-          })
+          )
         )
       );
     }
   }, {
     key: 'dropBlank',
-    value: function dropBlank(problemIdx, respIdx) {
+    value: function dropBlank(problemIdx, textPieceIdx) {
       // Don't allow blank to be dropped on a spot right after another blank
-      var prevResp = this.state.problems[problemIdx].textPieces[respIdx - 1];
+      var prevResp = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
       if (prevResp && prevResp.blank) {
         return;
       }
       var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems[problemIdx].textPieces.splice(respIdx, 0, {
+      problems[problemIdx].textPieces.splice(textPieceIdx, 0, {
         text: '',
         blank: true,
         id: _shortid2.default.generate()
       });
-      var nextResp = problems[problemIdx].textPieces[respIdx + 1];
+      var nextResp = problems[problemIdx].textPieces[textPieceIdx + 1];
       if (!nextResp) {
-        problems[problemIdx].textPieces.splice(respIdx + 1, 0, {
+        problems[problemIdx].textPieces.splice(textPieceIdx + 1, 0, {
           text: '',
           blank: false,
           id: _shortid2.default.generate()
@@ -43064,19 +43068,19 @@ var NewDocForm = function (_React$Component) {
     }
   }, {
     key: 'removeBlank',
-    value: function removeBlank(problemIdx, respIdx) {
+    value: function removeBlank(problemIdx, textPieceIdx) {
       event.preventDefault();
       var problems = (0, _lodash.cloneDeep)(this.state.problems);
       var textPieces = problems[problemIdx].textPieces;
-      textPieces.splice(respIdx, 1);
-      if (respIdx > 0) {
+      textPieces.splice(textPieceIdx, 1);
+      if (textPieceIdx > 0) {
         // Combine the textPiece text that followed the blank with the textPiece text
         // that came before the blank. Inner if condition checks if there
         // were text, because there weren't, it messes up placeholder text.
-        if (textPieces[respIdx].text) {
-          textPieces[respIdx - 1].text += ' ' + textPieces.splice(respIdx, 1)[0].text;
+        if (textPieces[textPieceIdx].text) {
+          textPieces[textPieceIdx - 1].text += ' ' + textPieces.splice(textPieceIdx, 1)[0].text;
         } else {
-          textPieces.splice(respIdx, 1);
+          textPieces.splice(textPieceIdx, 1);
         }
       }
       this.setState({ problems: problems });
@@ -43156,13 +43160,13 @@ var NewDocForm = function (_React$Component) {
     }
   }, {
     key: 'handleTextPiecesInput',
-    value: function handleTextPiecesInput(problemIdx, respIdx) {
+    value: function handleTextPiecesInput(problemIdx, textPieceIdx) {
       var _this4 = this;
 
       return function (event) {
         var value = event.target.value;
         var problems = (0, _lodash.cloneDeep)(_this4.state.problems);
-        problems[problemIdx].textPieces[respIdx].text = value;
+        problems[problemIdx].textPieces[textPieceIdx].text = value;
         _this4.setState({ problems: problems });
       };
     }
@@ -50163,7 +50167,7 @@ var Problems = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'section' },
+        null,
         this.props.problems.map(function (problem, idx) {
           return _react2.default.createElement(
             _Problem2.default,
@@ -50441,11 +50445,61 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _NewBlank = __webpack_require__(379);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ButtonRow = function (_React$Component) {
+  _inherits(ButtonRow, _React$Component);
+
+  function ButtonRow() {
+    _classCallCheck(this, ButtonRow);
+
+    return _possibleConstructorReturn(this, (ButtonRow.__proto__ || Object.getPrototypeOf(ButtonRow)).apply(this, arguments));
+  }
+
+  _createClass(ButtonRow, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'button-row' },
+        this.props.children
+      );
+    }
+  }]);
+
+  return ButtonRow;
+}(_react2.default.Component);
+
+exports.default = ButtonRow;
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NewBlank = __webpack_require__(380);
 
 var _NewBlank2 = _interopRequireDefault(_NewBlank);
 
-var _NewProblem = __webpack_require__(380);
+var _NewProblem = __webpack_require__(381);
 
 var _NewProblem2 = _interopRequireDefault(_NewProblem);
 
@@ -50478,11 +50532,20 @@ var Toolbox = function (_React$Component) {
         { className: 'toolbox' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'toolbox-title' },
           'Toolbox'
         ),
-        _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate() }),
-        _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible })
+        _react2.default.createElement(
+          'div',
+          { className: 'toolbox-instructions' },
+          'Drag and drop the items below to modify the document'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'tools' },
+          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate() }),
+          _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible })
+        )
       );
     }
   }]);
@@ -50493,7 +50556,7 @@ var Toolbox = function (_React$Component) {
 exports.default = Toolbox;
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50582,7 +50645,7 @@ exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWBLANK, newBla
 })(NewBlank);
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50692,7 +50755,7 @@ exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWPROBLEM, newP
 })(NewProblem);
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50714,11 +50777,11 @@ var _shortid = __webpack_require__(56);
 
 var _shortid2 = _interopRequireDefault(_shortid);
 
-var _Problems = __webpack_require__(382);
+var _Problems = __webpack_require__(383);
 
 var _Problems2 = _interopRequireDefault(_Problems);
 
-var _WordBank = __webpack_require__(384);
+var _WordBank = __webpack_require__(385);
 
 var _WordBank2 = _interopRequireDefault(_WordBank);
 
@@ -50854,7 +50917,7 @@ exports.default = DocForm;
 // }, DocForm);
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50872,7 +50935,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _TextPieces = __webpack_require__(383);
+var _TextPieces = __webpack_require__(384);
 
 var _TextPieces2 = _interopRequireDefault(_TextPieces);
 
@@ -50927,7 +50990,7 @@ var Problems = function (_React$Component) {
 exports.default = Problems;
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50995,7 +51058,7 @@ var TextPieces = function (_React$Component) {
 exports.default = TextPieces;
 
 /***/ }),
-/* 384 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51060,7 +51123,7 @@ var WordBank = function (_React$Component) {
 exports.default = WordBank;
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51170,7 +51233,7 @@ var NavBar = function (_React$Component) {
 exports.default = NavBar;
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51190,56 +51253,6 @@ function shuffle(array) {
     array[j] = temp;
   }
 }
-
-/***/ }),
-/* 387 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ButtonRow = function (_React$Component) {
-  _inherits(ButtonRow, _React$Component);
-
-  function ButtonRow() {
-    _classCallCheck(this, ButtonRow);
-
-    return _possibleConstructorReturn(this, (ButtonRow.__proto__ || Object.getPrototypeOf(ButtonRow)).apply(this, arguments));
-  }
-
-  _createClass(ButtonRow, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'button-row' },
-        this.props.children
-      );
-    }
-  }]);
-
-  return ButtonRow;
-}(_react2.default.Component);
-
-exports.default = ButtonRow;
 
 /***/ })
 /******/ ]);
