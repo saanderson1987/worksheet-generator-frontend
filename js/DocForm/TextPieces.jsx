@@ -1,21 +1,21 @@
 import React from 'react';
 
-class Response extends React.Component {
+class TextPieces extends React.Component {
   render() {
     return (
       <div>
         {
-          this.props.problem.response.map( (part, idx) => {
-            if (part.blank) {
+          this.props.problem.textPieces.map( (textPiece, idx) => {
+            if (textPiece.blank) {
               return (
                 <input
-                  key={ part.id }
-                  value={ part.text }
+                  key={ textPiece.id }
+                  value={ textPiece.text }
                   onChange={ this.props.handleInputChange(this.props.problemIdx, idx) }
                 />
               );
             } else {
-              return <div key={ part.id }>{ part.text }</div>;
+              return <div key={ textPiece.id }> { textPiece.text } </div>;
             }
           })
         }
@@ -24,4 +24,4 @@ class Response extends React.Component {
   }
 }
 
-export default Response;
+export default TextPieces;

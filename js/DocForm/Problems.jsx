@@ -1,16 +1,16 @@
 import React from 'react';
-import Response from './Response.jsx';
+import TextPieces from './TextPieces.jsx';
 
 class Problems extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{paddingBottom: '20px'}}>
         {
           this.props.problems.map( (problem, idx) => {
-            return(
-              <div key={problem.id}>
-                <div>{idx+1}. { problem.question }</div>
-                <Response
+            return (
+              <div className='doc-form__problem' key={problem.id}>
+                <div>{idx+1}.</div>
+                <TextPieces
                   problem={this.props.problems[idx]}
                   problemIdx ={idx}
                   {...this.props}

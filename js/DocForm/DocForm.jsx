@@ -6,6 +6,8 @@ import {cloneDeep} from 'lodash';
 // import DocResults from './DocResults.jsx';
 import shortid from 'shortid';
 import Problems from './Problems.jsx';
+import WordBank from './WordBank.jsx';
+import Instructions from './Instructions.jsx';
 
 class DocForm extends React.Component {
   constructor(props) {
@@ -32,56 +34,27 @@ class DocForm extends React.Component {
           <br />this.props:
           {JSON.stringify(this.props)}</div>);
     }
+
     return (
       <div>
-        <h3>Exercise Form</h3>
         <h1>{ this.props.docName }</h1>
+        <div>{this.props.course}</div>
+        <Instructions instructions={this.props.instructions}/>
+        <WordBank wordBank={this.props.wordBank}/>
         <Problems
           problems={this.state.problems}
           handleInputChange={this.handleInputChange}
         />
-        <button onClick={this.handleSubmit}>Submit</button>
-        this.state:
-        {JSON.stringify(this.state)}
-        <br />this.props:
-        {JSON.stringify(this.props)}
+        <button className='button_green' onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }
 
-  renderProblems() {
-    return this.state.problems.map( (problem, idx) => {
-      return (
-        <div key={idx}>
-          <div>{idx+1}. { problem.question }</div>
-          <div>{ this.renderResponse(idx) }</div>
-        </div>
-      );
-    });
-  }
-
-  renderResponse(problemIdx) {
-    let problem = this.state.problems[problemIdx];
-    return problem.response.map( (part, idx) => {
-      if (part.blank) {
-        return (
-          <input
-            key={ idx }
-            value={ problem.response[idx].text }
-            onChange={ this.handleInputChange(problemIdx, idx) }
-          />
-        );
-      } else {
-        return <div key={ idx }>{ part.text }</div>;
-      }
-    });
-  }
-
-  handleInputChange(problemIdx, respIdx) {
+  handleInputChange(problemIdx, textPieceIdx) {
     return (event) => {
       const value = event.target.value;
       const problems = cloneDeep(this.state.problems);
-      problems[problemIdx].response[respIdx].text = value;
+      problems[problemIdx].textPieces[textPieceIdx].text = value;
       this.setState({ problems });
     };
   }
@@ -96,9 +69,9 @@ class DocForm extends React.Component {
 const genBlanks = (problems) => {
   let probsWithBlanks = cloneDeep(problems);
   problems.forEach( (problem, problemIdx) => {
-    problem.response.forEach( (part, idx) => {
-      if (part.blank) {
-        probsWithBlanks[problemIdx].response[idx].text = '';
+    problem.textPieces.forEach( (textPiece, idx) => {
+      if (textPiece.blank) {
+        probsWithBlanks[problemIdx].textPieces[idx].text = '';
       }
     });
   });

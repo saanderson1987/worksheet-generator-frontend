@@ -1,15 +1,107 @@
 @import url("https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,700");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline; }
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0; }
+
 body {
-  font-family: arial, "Libre Franklin", sans-serif;
-  font-weight: 300; }
+  color: black;
+  background: white; }
+
+ol, ul {
+  list-style: none; }
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: ""; }
+
+blockquote, q {
+  quotes: "" ""; }
+
+body {
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 400;
+  background-color: #E2E2E2;
+  min-width: 650px; }
 
 input {
-  font-family: arial, "Libre Franklin", sans-serif;
-  font-weight: 300; }
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 400;
+  font-size: inherit; }
 
 button {
-  font-family: arial, "Libre Franklin", sans-serif;
-  font-weight: 300; }
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 400; }
+
+h1 {
+  font-size: 30px;
+  font-weight: 700;
+  padding: 0.25em 0; }
+
+.plus-icon {
+  display: inline-block;
+  background-color: #3F9D24;
+  border-radius: 50%;
+  height: 19px;
+  width: 19px;
+  text-align: center; }
+
+.page-container {
+  background-color: white;
+  margin: 13px;
+  padding: 13px; }
+
+.header {
+  font-weight: bold; }
+
+.header-lg {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0.25em 0; }
+
+.section {
+  margin: 30px 0px; }
+
+.button-row {
+  display: flex; }
+
+.button-row button:not(:first-child) {
+  margin-left: 25px; }
+
+button {
+  border: none;
+  font: inherit;
+  padding: 10px 17px; }
+
+.button_green {
+  background-color: #3F9D24;
+  color: white; }
 
 .new-doc-name {
   font-size: 1.17em; }
@@ -21,7 +113,7 @@ button {
   border: 1px solid black;
   margin-left: 20px; }
 
-.new-form-response-input {
+.new-form-text-piece-input {
   border: 0;
   outline: 0;
   background: transparent;
@@ -30,11 +122,12 @@ button {
 .new-form-answer-input {
   margin: 0px 4px 1px 0px; }
 
-.new-form-responses {
+.new-form-text-pieces {
   display: inline-flex;
+  align-items: flex-end;
+  padding-bottom: 3px;
   margin: 10px;
-  border-bottom: 1px solid gray;
-  align-items: flex-end; }
+  border-bottom: 1px solid gray; }
 
 .modify-blank {
   border-radius: 50%;
@@ -55,5 +148,56 @@ button {
   border: 1px dotted black;
   padding: 10px;
   margin: 4px; }
+
+.blank {
+  border: 1px solid #a9a9a9;
+  align-items: center;
+  display: flex;
+  margin: 0px 7px; }
+
+.blank input {
+  border: none; }
+
+nav {
+  color: white; }
+
+.nav__row1 {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1E4072;
+  padding: 15px;
+  align-items: center; }
+
+.nav__logo {
+  font-size: 24px; }
+
+.nav__row2 {
+  display: flex;
+  background-color: #467FD7; }
+
+.nav__row2-item {
+  border-right: 1px solid white;
+  padding: 10px 15px; }
+
+.nav__row2-text_left-of-icon {
+  display: inline-block;
+  padding-left: 5px; }
+
+.doc-form__problem {
+  padding: 10px 0px; }
+
+.doc-form__problem div {
+  display: inline; }
+
+.word-bank {
+  background-color: #D8E5F1;
+  padding: 10px; }
+
+.word-bank__words {
+  display: flex;
+  flex-wrap: wrap; }
+
+.word-bank__words div {
+  padding: 10px 25px 0px 0px; }
 
 /*# sourceMappingURL=main.css.map */

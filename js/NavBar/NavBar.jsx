@@ -1,7 +1,7 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router-dom';
+// import { Meteor } from 'meteor/meteor';
+// import { createContainer } from 'meteor/react-meteor-data';
+// import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -11,28 +11,28 @@ export default class NavBar extends React.Component {
 
   logout(e){
     e.preventDefault();
-    Meteor.logout( (err) => {
-        if (err) {
-            console.log( err.reason );
-        } else {
-            this.props.history.push('/login');
-        }
-    });
+    // Meteor.logout( (err) => {
+    //     if (err) {
+    //         console.log( err.reason );
+    //     } else {
+    //         this.props.history.push('/login');
+    //     }
+    // });
   }
 
   render(){
     return (
-        <nav className="navbar navbar-default navbar-static-top">
-          <div className="container">
-            <div className="navbar-header">
-              <Link className="navbar-brand" to="/">Worksheet Generator</Link>
-            </div>
-            <div className="navbar-collapse">
-              <ul className="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#" onClick={this.logout}>Logout</a>
-                </li>
-              </ul>
+        <nav>
+          <div className="nav__row1">
+            <div className="nav__logo">Worksheet Generator</div>
+            <div onClick={this.logout}>Logout</div>
+          </div>
+          <div className="nav__row2">
+            <div className='nav__row2-item'>Documents I'm Subscribed To</div>
+            <div className='nav__row2-item'>Documents I've Created</div>
+            <div className='nav__row2-item'>
+              <div className="plus-icon">+</div>
+              <div className='nav__row2-text_left-of-icon'>New Document</div>
             </div>
           </div>
         </nav>
