@@ -10,8 +10,8 @@ class Toolbox extends React.Component {
         <div className='toolbox-title'>Toolbox</div>
         <div className='toolbox-instructions'>Drag and drop the items below to modify the document</div>
         <div className='tools'>
-          <NewBlank id={shortid.generate()} />
           <NewProblem id={shortid.generate()} removeProblem={this.props.removeProblem} makeProbVisible={this.props.makeProbVisible} />
+          <NewBlank id={shortid.generate()} />
         </div>
       </div>
     );

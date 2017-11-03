@@ -50411,7 +50411,7 @@ var TextPiece = function (_React$Component) {
       var opacity = opaque ? 0 : 1;
       return connectDropTarget(_react2.default.createElement(
         'div',
-        { style: { opacity: opacity }, className: 'response' },
+        { style: { opacity: opacity } },
         this.props.children
       ));
     }
@@ -50543,8 +50543,8 @@ var Toolbox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'tools' },
-          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate() }),
-          _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible })
+          _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible }),
+          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate() })
         )
       );
     }
@@ -50623,13 +50623,18 @@ var NewBlank = function (_React$Component) {
 
       return connectDragSource(_react2.default.createElement(
         'div',
-        { style: { margin: '5px', cursor: 'move' } },
+        { className: 'blank', style: { margin: '5px', cursor: 'move' } },
         _react2.default.createElement('input', {
+          placeholder: 'New blank',
           className: 'new-form-answer-input',
-          style: { cursor: 'move' },
-          disabled: true,
-          placeholder: 'New blank'
-        })
+          style: { width: '115px', backgroundColor: 'white' },
+          disabled: true
+        }),
+        _react2.default.createElement(
+          'button',
+          { className: 'modify-blank remove-blank' },
+          '-'
+        )
       ));
     }
   }]);
@@ -50643,6 +50648,16 @@ exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWBLANK, newBla
     isDragging: monitor.isDragging()
   };
 })(NewBlank);
+
+
+{/* <div style={{margin: '5px', cursor: 'move', }}>
+   <input
+     className='new-form-answer-input'
+     style={{cursor: 'move'}}
+     disabled
+     placeholder='New blank'
+   />
+  </div> */}
 
 /***/ }),
 /* 381 */
@@ -50731,12 +50746,8 @@ var NewProblem = function (_React$Component) {
             { className: 'new-form-text-pieces' },
             _react2.default.createElement(
               'div',
-              { className: 'response' },
-              _react2.default.createElement(
-                'div',
-                { style: { display: 'inline-block' } },
-                _react2.default.createElement('input', { style: { cursor: 'move' }, disabled: true, placeholder: 'New Problem', className: 'new-form-text-piece-input' })
-              )
+              null,
+              _react2.default.createElement('input', { style: { cursor: 'move', width: '110px' }, disabled: true, placeholder: 'New Problem', className: 'new-form-text-piece-input' })
             )
           )
         )

@@ -1,10 +1,14 @@
+.edit-doc-container {
+    
+}
+
 .problems-container {
   display: flex;
   justify-content: space-between;
 }
 
 .toolbox {
-  max-width: 225px;
+  width: 225px;
   border: 1px solid black;
   margin-left: 20px;
   position: relative;

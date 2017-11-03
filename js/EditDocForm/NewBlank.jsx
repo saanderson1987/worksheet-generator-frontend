@@ -21,13 +21,15 @@ class NewBlank extends React.Component {
     const { isDragging, connectDragSource } = this.props;
 
     return connectDragSource(
-      <div style={{margin: '5px', cursor: 'move'}}>
+      <div className='blank' style={{margin: '5px', cursor: 'move',}}>
         <input
+          placeholder="New blank"
           className='new-form-answer-input'
-          style={{cursor: 'move'}}
+          style={{width: '115px', backgroundColor: 'white'}}
           disabled
-          placeholder='New blank'
         />
+        <button className='modify-blank remove-blank'>-</button>
+
       </div>
     );
   }
@@ -38,3 +40,12 @@ export default DragSource(ItemTypes.NEWBLANK, newBlankSource,
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
 }))(NewBlank);
+
+{/* <div style={{margin: '5px', cursor: 'move', }}>
+  <input
+    className='new-form-answer-input'
+    style={{cursor: 'move'}}
+    disabled
+    placeholder='New blank'
+  />
+</div> */}

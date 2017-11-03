@@ -31,10 +31,8 @@ class NewProblem extends React.Component {
       <div className='problem' style={{cursor: 'move'}}>
         <div>
           1. <div className='new-form-text-pieces' >
-              <div className="response">
-                <div style={{display: 'inline-block'}}>
-                  <input style={{cursor: 'move'}} disabled placeholder='New Problem' className='new-form-text-piece-input' />
-                </div>
+              <div>
+                <input style={{cursor: 'move', width: '110px'}} disabled placeholder='New Problem' className='new-form-text-piece-input' />
               </div>
           </div>
         </div>
