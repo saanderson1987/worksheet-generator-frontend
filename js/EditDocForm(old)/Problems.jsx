@@ -18,10 +18,7 @@ class Problems extends React.Component {
                 question={problem.question}
                 opaque={problem.opaque}
               >
-                <div className='move-box'>
-
-                </div>
-                <div className='problem-text'>
+                <div>
                   { idx + 1 }.{' '}
                     <TextPieces
                       problem={this.props.problems[idx]}

@@ -7,7 +7,6 @@ import { flow } from 'lodash';
 
 const newBlankSource = {
   beginDrag(props, monitor) {
-    props.splitText();
     return {
       id: props.id,
       index: null,
@@ -15,9 +14,6 @@ const newBlankSource = {
     };
   },
 
-  endDrag(props) {
-    props.rejoinText();
-  }
 };
 
 class NewBlank extends React.Component {
@@ -29,7 +25,7 @@ class NewBlank extends React.Component {
         <input
           placeholder="New blank"
           className='new-form-answer-input'
-          style={{width: '115px', backgroundColor: 'white', cursor: 'move'}}
+          style={{width: '115px', backgroundColor: 'white'}}
           disabled
         />
         <button className='modify-blank remove-blank'>-</button>

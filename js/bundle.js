@@ -42858,6 +42858,8 @@ var NewDocForm = function (_React$Component) {
     _this.removeBlank = _this.removeBlank.bind(_this);
     _this.removeProblem = _this.removeProblem.bind(_this);
     _this.makeProbVisible = _this.makeProbVisible.bind(_this);
+    _this.splitText = _this.splitText.bind(_this);
+    _this.rejoinText = _this.rejoinText.bind(_this);
     _this.state = {
       docName: '',
       instructions: 'Fill in the blanks with the words in the bank.',
@@ -42879,34 +42881,10 @@ var NewDocForm = function (_React$Component) {
         }]
       }, {
         id: _shortid2.default.generate(),
-        textPieces: [{
-          text: "You don't need to be a(n)",
-          blank: false,
-          id: _shortid2.default.generate()
-        }, {
-          text: "genius",
-          blank: true,
-          id: _shortid2.default.generate()
-        }, {
-          text: "to see what the problem here is.",
-          blank: false,
-          id: _shortid2.default.generate()
-        }]
+        textPieces: []
       }, {
         id: _shortid2.default.generate(),
-        textPieces: [{
-          text: "Make sure you read all the",
-          blank: false,
-          id: _shortid2.default.generate()
-        }, {
-          text: "instructions",
-          blank: true,
-          id: _shortid2.default.generate()
-        }, {
-          text: "carefully before setting up the device",
-          blank: false,
-          id: _shortid2.default.generate()
-        }]
+        textPieces: []
       }],
       submitStatus: ''
     };
@@ -42979,7 +42957,9 @@ var NewDocForm = function (_React$Component) {
               }),
               _react2.default.createElement(_Toolbox2.default, {
                 removeProblem: this.removeProblem,
-                makeProbVisible: this.makeProbVisible
+                makeProbVisible: this.makeProbVisible,
+                splitText: this.splitText,
+                rejoinText: this.rejoinText
               })
             ),
             _react2.default.createElement(
@@ -43004,8 +42984,8 @@ var NewDocForm = function (_React$Component) {
     key: 'dropBlank',
     value: function dropBlank(problemIdx, textPieceIdx) {
       // Don't allow blank to be dropped on a spot right after another blank
-      var prevResp = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
-      if (prevResp && prevResp.blank) {
+      var prevTextPiece = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
+      if (prevTextPiece && prevTextPiece.blank) {
         return;
       }
       var problems = (0, _lodash.cloneDeep)(this.state.problems);
@@ -43014,8 +42994,8 @@ var NewDocForm = function (_React$Component) {
         blank: true,
         id: _shortid2.default.generate()
       });
-      var nextResp = problems[problemIdx].textPieces[textPieceIdx + 1];
-      if (!nextResp) {
+      var nextTextPiece = problems[problemIdx].textPieces[textPieceIdx + 1];
+      if (!nextTextPiece) {
         problems[problemIdx].textPieces.splice(textPieceIdx + 1, 0, {
           text: '',
           blank: false,
@@ -43033,8 +43013,8 @@ var NewDocForm = function (_React$Component) {
         return dragIndex;
       }
       // Don't allow blank to be moved to a spot right after another blank
-      var prevResp = this.state.problems[problemIdx].textPieces[hoverIndex - 1];
-      if (prevResp && prevResp.blank) {
+      var prevTextPiece = this.state.problems[problemIdx].textPieces[hoverIndex - 1];
+      if (prevTextPiece && prevTextPiece.blank) {
         return;
       }
       if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].textPieces.length) {
@@ -43044,15 +43024,11 @@ var NewDocForm = function (_React$Component) {
       var textPieces = problems[problemIdx].textPieces;
       var dragBlank = textPieces.splice(dragIndex, 1)[0];
       textPieces.splice(hoverIndex, 0, dragBlank);
-      if (dragIndex > 0) {
-        // Combine the textPiece text that followed the blank with the textPiece text
-        // that came before the blank. Inner if condition checks if there
-        // were text, because there weren't, it messes up placeholder text.
-        if (textPieces[dragIndex + 1].text) {
-          textPieces[dragIndex].text += ' ' + textPieces.splice(dragIndex + 1, 1)[0].text;
-        } else {
-          textPieces.splice(dragIndex + 1, 1);
-        }
+      // Delete blank textPiece at the end of the problem text that's
+      // automatically added after a blank added to the end if this blank
+      // is moved.
+      if (textPieces[dragIndex + 1] && textPieces[dragIndex + 1].text === '') {
+        textPieces.splice(dragIndex + 1, 1);
       }
       if (dragIndex === 0 && !textPieces[hoverIndex + 1]) {
         textPieces.push({
@@ -43169,6 +43145,60 @@ var NewDocForm = function (_React$Component) {
         problems[problemIdx].textPieces[textPieceIdx].text = value;
         _this4.setState({ problems: problems });
       };
+    }
+  }, {
+    key: 'splitText',
+    value: function splitText() {
+      // Goes through the textPieces of each problem and splits the text
+      // of each textPiece so that every word is a textPiece.
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      for (var h = 0; h < problems.length; h++) {
+        var textPieces = problems[h].textPieces;
+        var newTextPieces = [];
+        for (var i = 0; i < textPieces.length; i++) {
+          var textPiece = textPieces[i];
+          if (textPiece.blank) {
+            newTextPieces.push(textPiece);
+          } else {
+            var textArr = textPiece.text.split(' ');
+            for (var j = 0; j < textArr.length; j++) {
+              newTextPieces.push({
+                text: textArr[j],
+                blank: false,
+                id: _shortid2.default.generate()
+              });
+            }
+          }
+        }
+        problems[h].textPieces = newTextPieces;
+      }
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'rejoinText',
+    value: function rejoinText() {
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      for (var h = 0; h < problems.length; h++) {
+        var textPieces = problems[h].textPieces;
+        var newTextPieces = [];
+        // debugger;
+        for (var i = 0; i < textPieces.length; i++) {
+          var textPiece = textPieces[i];
+          if (textPiece.blank) {
+            newTextPieces.push(textPiece);
+          } else {
+            // let prevTextPiece = textPieces[i-1];
+            var prevTextPiece = newTextPieces[newTextPieces.length - 1];
+            if (i === 0 || prevTextPiece.blank) {
+              newTextPieces.push(textPiece);
+            } else {
+              prevTextPiece.text += ' ' + textPiece.text;
+            }
+          }
+        }
+        problems[h].textPieces = newTextPieces;
+      }
+      this.setState({ problems: problems });
     }
   }, {
     key: 'updateDoc',
@@ -50179,9 +50209,10 @@ var Problems = function (_React$Component) {
               question: problem.question,
               opaque: problem.opaque
             }),
+            _react2.default.createElement('div', { className: 'move-box' }),
             _react2.default.createElement(
               'div',
-              null,
+              { className: 'problem-text' },
               idx + 1,
               '.',
               ' ',
@@ -50544,7 +50575,7 @@ var Toolbox = function (_React$Component) {
           'div',
           { className: 'tools' },
           _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible }),
-          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate() })
+          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate(), splitText: this.props.splitText, rejoinText: this.props.rejoinText })
         )
       );
     }
@@ -50596,11 +50627,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var newBlankSource = {
   beginDrag: function beginDrag(props, monitor) {
+    props.splitText();
     return {
       id: props.id,
       index: null,
       dragging: monitor.isDragging()
     };
+  },
+  endDrag: function endDrag(props) {
+    props.rejoinText();
   }
 };
 
@@ -50627,7 +50662,7 @@ var NewBlank = function (_React$Component) {
         _react2.default.createElement('input', {
           placeholder: 'New blank',
           className: 'new-form-answer-input',
-          style: { width: '115px', backgroundColor: 'white' },
+          style: { width: '115px', backgroundColor: 'white', cursor: 'move' },
           disabled: true
         }),
         _react2.default.createElement(

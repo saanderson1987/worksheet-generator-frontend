@@ -1,5 +1,5 @@
 .edit-doc-container {
-    
+
 }
 
 .problems-container {
@@ -74,9 +74,16 @@
 }
 
 .problem {
-  border: 1px dotted black;
-  padding: 10px;
   margin: 4px;
+  display: flex;
+  // border: 1px dotted black;
+}
+
+.problem-text {
+  padding: 10px;
+  border: 1px dashed #ababab;
+  border-left: none;
+
 }
 
 .blank {
@@ -88,4 +95,25 @@
 
 .blank input {
   border: none;
+}
+
+// Dotted background for the move-box. Inspired by https://codepen.io/edmundojr/pen/xOYJGw
+
+// Colors
+$bg-color: $gray;
+$dot-color: #ababab;
+
+// Dimensions
+$dot-size: 2px;
+$dot-space: 10px;
+
+.move-box {
+  border: 1px solid $dot-color;
+  border-radius: 4px 0px 0px 4px;
+  width: 25px;
+	background:
+		linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+		linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+		$dot-color;
+	background-size: $dot-space $dot-space;
 }
