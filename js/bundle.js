@@ -31255,20 +31255,6 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(15);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(26);
-
-var _reactDnd = __webpack_require__(32);
-
-var _ItemTypes = __webpack_require__(58);
-
-var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
-
-var _lodash = __webpack_require__(31);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31276,88 +31262,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var problemSource = {
-  beginDrag: function beginDrag(props) {
-    return {
-      id: props.id,
-      index: props.index
-    };
-  },
-  endDrag: function endDrag(props, monitor) {
-    props.makeProbVisible(monitor.getItem().index);
-  }
-};
-
-var problemTarget = {
-  hover: function hover(props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var hoverIndex = props.index;
-
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    // Determine rectangle on screen
-    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
-
-    // Get vertical middle
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-    // Determine mouse position
-    var clientOffset = monitor.getClientOffset();
-
-    // Get pixels to the top
-    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-    // Dragging downwards
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    // Dragging upwards
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
-
-    props.moveProblem(dragIndex, hoverIndex);
-    monitor.getItem().index = hoverIndex;
-  }
-};
-
-var newProblemTarget = {
-  hover: function hover(props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var hoverIndex = props.index;
-    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
-
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-    var clientOffset = monitor.getClientOffset();
-
-    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    // if dragIndex === 0 , => false
-    if (dragIndex !== null) {
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      props.moveProblem(dragIndex, hoverIndex);
-    } else {
-      props.addNewProblem(hoverIndex);
-    }
-    monitor.getItem().index = hoverIndex;
-  }
-};
-
-var newBlankTarget = {};
 
 var Problem = function (_React$Component) {
   _inherits(Problem, _React$Component);
@@ -31380,48 +31284,38 @@ var Problem = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          isDragging = _props.isDragging,
-          connectDragSource = _props.connectDragSource,
-          connectDropTarget = _props.connectDropTarget,
-          connectAnotherDropTarget = _props.connectAnotherDropTarget,
-          connectNewBlankDropTarget = _props.connectNewBlankDropTarget,
-          opaque = _props.opaque;
+      var wrapper = function wrapper(rendered) {
+        return rendered;
+      };
+      var style = {};
+      if (this.props.connectDragSource) {
+        var _props = this.props,
+            isDragging = _props.isDragging,
+            connectDragSource = _props.connectDragSource,
+            connectDropTarget = _props.connectDropTarget,
+            connectAnotherDropTarget = _props.connectAnotherDropTarget,
+            connectNewBlankDropTarget = _props.connectNewBlankDropTarget,
+            opaque = _props.opaque;
 
-      var opacity = isDragging || opaque ? 0 : 1;
+        var opacity = isDragging || opaque ? 0 : 1;
+        style = { opacity: opacity };
+        wrapper = function wrapper(rendered) {
+          return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(rendered))));
+        };
+      }
 
-      return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(_react2.default.createElement(
+      return wrapper(_react2.default.createElement(
         'div',
-        { style: { opacity: opacity }, className: 'problem' },
+        { style: style, className: 'problem' },
         this.props.children
-      )))));
+      ));
     }
   }]);
 
   return Problem;
 }(_react2.default.Component);
 
-exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(_ItemTypes2.default.PROBLEM, problemSource, function (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.PROBLEM, problemTarget, function (connect) {
-  return {
-    connectDropTarget: connect.dropTarget()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWPROBLEM, newProblemTarget, function (connect) {
-  return {
-    connectAnotherDropTarget: connect.dropTarget()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, newBlankTarget, function (connect, monitor) {
-  return {
-    connectNewBlankDropTarget: connect.dropTarget(),
-    isNewBlankOver: monitor.isOver(),
-    didNewBlankDrop: monitor.didDrop(),
-    newBlank: monitor.getItem()
-  };
-}))(Problem);
+exports.default = Problem;
 
 /***/ }),
 /* 152 */
@@ -50169,6 +50063,10 @@ var _Problem = __webpack_require__(151);
 
 var _Problem2 = _interopRequireDefault(_Problem);
 
+var _DraggableProblem = __webpack_require__(388);
+
+var _DraggableProblem2 = _interopRequireDefault(_DraggableProblem);
+
 var _TextPieces = __webpack_require__(376);
 
 var _TextPieces2 = _interopRequireDefault(_TextPieces);
@@ -50184,10 +50082,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Problems = function (_React$Component) {
   _inherits(Problems, _React$Component);
 
-  function Problems() {
+  function Problems(props) {
     _classCallCheck(this, Problems);
 
-    return _possibleConstructorReturn(this, (Problems.__proto__ || Object.getPrototypeOf(Problems)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Problems.__proto__ || Object.getPrototypeOf(Problems)).call(this, props));
+
+    _this.handleMouse = _this.handleMouse.bind(_this);
+    _this.state = {
+      draggable: true
+    };
+    return _this;
   }
 
   _createClass(Problems, [{
@@ -50195,12 +50099,14 @@ var Problems = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var Problem = this.state.draggable ? _DraggableProblem2.default : _Problem2.default;
+
       return _react2.default.createElement(
         'div',
         null,
         this.props.problems.map(function (problem, idx) {
           return _react2.default.createElement(
-            _Problem2.default,
+            Problem,
             _extends({
               key: problem.id,
               id: problem.id,
@@ -50212,7 +50118,11 @@ var Problems = function (_React$Component) {
             _react2.default.createElement('div', { className: 'move-box' }),
             _react2.default.createElement(
               'div',
-              { className: 'problem-text' },
+              {
+                className: 'problem-text',
+                onMouseEnter: _this2.handleMouse('enter'),
+                onMouseLeave: _this2.handleMouse('leave')
+              },
               idx + 1,
               '.',
               ' ',
@@ -50224,6 +50134,16 @@ var Problems = function (_React$Component) {
           );
         })
       );
+    }
+  }, {
+    key: 'handleMouse',
+    value: function handleMouse(direction) {
+      var _this3 = this;
+
+      return function (event) {
+        var draggable = direction === 'enter' ? false : true;
+        _this3.setState({ draggable: draggable });
+      };
     }
   }]);
 
@@ -50635,7 +50555,7 @@ var newBlankSource = {
     };
   },
   endDrag: function endDrag(props) {
-    props.rejoinText();
+    // props.rejoinText();
   }
 };
 
@@ -50774,7 +50694,7 @@ var NewProblem = function (_React$Component) {
         { className: 'problem', style: { cursor: 'move' } },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'problem-text', style: { border: '1px dashed #ababab' } },
           '1. ',
           _react2.default.createElement(
             'div',
@@ -51299,6 +51219,145 @@ function shuffle(array) {
     array[j] = temp;
   }
 }
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(26);
+
+var _reactDnd = __webpack_require__(32);
+
+var _ItemTypes = __webpack_require__(58);
+
+var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
+
+var _lodash = __webpack_require__(31);
+
+var _Problem = __webpack_require__(151);
+
+var _Problem2 = _interopRequireDefault(_Problem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var problemSource = {
+  beginDrag: function beginDrag(props) {
+    return {
+      id: props.id,
+      index: props.index
+    };
+  },
+  endDrag: function endDrag(props, monitor) {
+    props.makeProbVisible(monitor.getItem().index);
+  }
+};
+
+var problemTarget = {
+  hover: function hover(props, monitor, component) {
+    var dragIndex = monitor.getItem().index;
+    var hoverIndex = props.index;
+
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+
+    // Determine rectangle on screen
+    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
+
+    // Get vertical middle
+    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    // Determine mouse position
+    var clientOffset = monitor.getClientOffset();
+
+    // Get pixels to the top
+    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+
+    props.moveProblem(dragIndex, hoverIndex);
+    monitor.getItem().index = hoverIndex;
+  }
+};
+
+var newProblemTarget = {
+  hover: function hover(props, monitor, component) {
+    var dragIndex = monitor.getItem().index;
+    var hoverIndex = props.index;
+    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
+
+    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    var clientOffset = monitor.getClientOffset();
+
+    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    // if dragIndex === 0 , => false
+    if (dragIndex !== null) {
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      props.moveProblem(dragIndex, hoverIndex);
+    } else {
+      props.addNewProblem(hoverIndex);
+    }
+    monitor.getItem().index = hoverIndex;
+  }
+};
+
+var newBlankTarget = {};
+
+exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(_ItemTypes2.default.PROBLEM, problemSource, function (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.PROBLEM, problemTarget, function (connect) {
+  return {
+    connectDropTarget: connect.dropTarget()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWPROBLEM, newProblemTarget, function (connect) {
+  return {
+    connectAnotherDropTarget: connect.dropTarget()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, newBlankTarget, function (connect, monitor) {
+  return {
+    connectNewBlankDropTarget: connect.dropTarget(),
+    isNewBlankOver: monitor.isOver(),
+    didNewBlankDrop: monitor.didDrop(),
+    newBlank: monitor.getItem()
+  };
+}))(_Problem2.default);
 
 /***/ })
 /******/ ]);
