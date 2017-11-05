@@ -10,3 +10,5 @@ Notable:
   -BUG: When I was implementing the drag and drop functionality for adding a new blank, I needed to create a function to split the text into array of word objects so that a blank could be added before or after any word. Then I needed to create another function to rejoin the text so that users could edit the text as a unit, i.e., use the backspace and highlight text. The rejoin function was cutting off some of the words at the end and I needed to figure out why. The rejoin function creates a new, empty text piece array and iterates over the old text piece array and adds the text of the current object in the iteration to the previous.   Upon analyzing the function, I realized that the variable I had for the previous text object referred to the previous one in the old text piece array, not the new one, which lead to errors.
 
   - Make it so that only the move-box will drag the problem. Inspired by: https://github.com/react-dnd/react-dnd/issues/335
+
+  -Content editable: Inspired by https://github.com/liamzebedee/reactjs-contenteditable

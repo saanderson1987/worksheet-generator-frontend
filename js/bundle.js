@@ -50250,10 +50250,11 @@ var TextPieces = function (_React$Component) {
                 dropBlank: _this2.props.dropBlank,
                 moveBlank: _this2.props.moveBlank
               },
-              _react2.default.createElement(_reactInputAutosize2.default, {
+              _react2.default.createElement('div', {
+                contentEditable: 'true',
                 placeholder: placeholder,
-                minWidth: minWidth,
-                inputClassName: 'new-form-text-piece-input',
+                style: { width: '20px' },
+                className: 'new-form-text-piece-input',
                 value: _this2.props.problem.textPieces[idx].text,
                 onChange: _this2.props.handleTextPiecesInput(_this2.props.problemIdx, idx)
               })

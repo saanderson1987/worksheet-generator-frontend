@@ -35,13 +35,14 @@ class TextPieces extends React.Component {
                   dropBlank={this.props.dropBlank}
                   moveBlank={this.props.moveBlank}
                 >
-                  <AutosizeInput
+                  <div
+                    contentEditable='true'
                     placeholder={ placeholder }
-                    minWidth={ minWidth }
-                    inputClassName='new-form-text-piece-input'
+                    style={{width: '20px'}}
+                    className='new-form-text-piece-input'
                     value={ this.props.problem.textPieces[idx].text }
                     onChange={ this.props.handleTextPiecesInput(this.props.problemIdx, idx) }
-                  />
+                  ></div>
                 </TextPiece>
               );
             }
