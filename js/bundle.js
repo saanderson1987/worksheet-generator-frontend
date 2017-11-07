@@ -22788,22 +22788,7 @@ module.exports = {
 
 
 /***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  PROBLEM: 'problem',
-  NEWBLANK: 'newBlank',
-  NEWPROBLEM: 'newProblem'
-};
-
-/***/ }),
+/* 58 */,
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25051,85 +25036,7 @@ var URL = exports.URL = '__NATIVE_URL__';
 var TEXT = exports.TEXT = '__NATIVE_TEXT__';
 
 /***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Problem = function (_React$Component) {
-  _inherits(Problem, _React$Component);
-
-  function Problem() {
-    _classCallCheck(this, Problem);
-
-    return _possibleConstructorReturn(this, (Problem.__proto__ || Object.getPrototypeOf(Problem)).apply(this, arguments));
-  }
-
-  _createClass(Problem, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      // Remove new blank if new blank drag item leaves problem and reset its index.
-      if (nextProps.isNewBlankOver !== this.props.isNewBlankOver && !nextProps.isNewBlankOver && this.props.newBlank.index !== null && !nextProps.didNewBlankDrop) {
-        this.props.removeBlank(this.props.index, this.props.newBlank.index);
-        this.props.newBlank.index = null;
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var wrapper = function wrapper(rendered) {
-        return rendered;
-      };
-      var style = {};
-      if (this.props.connectDragSource) {
-        var _props = this.props,
-            isDragging = _props.isDragging,
-            connectDragSource = _props.connectDragSource,
-            connectDropTarget = _props.connectDropTarget,
-            connectAnotherDropTarget = _props.connectAnotherDropTarget,
-            connectNewBlankDropTarget = _props.connectNewBlankDropTarget,
-            opaque = _props.opaque;
-
-        var opacity = isDragging || opaque ? 0 : 1;
-        style = { opacity: opacity };
-        wrapper = function wrapper(rendered) {
-          return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(rendered))));
-        };
-      }
-
-      return wrapper(_react2.default.createElement(
-        'div',
-        { style: style, className: 'problem' },
-        this.props.children
-      ));
-    }
-  }]);
-
-  return Problem;
-}(_react2.default.Component);
-
-exports.default = Problem;
-
-/***/ }),
+/* 89 */,
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31318,116 +31225,7 @@ var Instructions = function (_React$Component) {
 exports.default = Instructions;
 
 /***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ContentEditable = function (_Component) {
-  _inherits(ContentEditable, _Component);
-
-  function ContentEditable(props) {
-    _classCallCheck(this, ContentEditable);
-
-    var _this = _possibleConstructorReturn(this, (ContentEditable.__proto__ || Object.getPrototypeOf(ContentEditable)).call(this, props));
-
-    _this._onChange = _this._onChange.bind(_this);
-    _this._onPaste = _this._onPaste.bind(_this);
-    return _this;
-  }
-
-  _createClass(ContentEditable, [{
-    key: '_onChange',
-    value: function _onChange(ev) {
-      var method = this.getInnerMethod();
-      var value = this.elem[method];
-
-      this.props.onChange(ev, value);
-    }
-  }, {
-    key: '_onPaste',
-    value: function _onPaste(ev) {
-      var _props = this.props,
-          onPaste = _props.onPaste,
-          contentEditable = _props.contentEditable;
-
-
-      if (contentEditable === 'plaintext-only') {
-        ev.preventDefault();
-        var text = ev.clipboardData.getData("text");
-        document.execCommand('insertText', false, text);
-      }
-
-      if (onPaste) {
-        onPaste(ev);
-      }
-    }
-  }, {
-    key: 'getInnerMethod',
-    value: function getInnerMethod() {
-      return this.props.contentEditable === 'plaintext-only' ? 'innerText' : 'innerHTML';
-    }
-  }, {
-    key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      var method = this.getInnerMethod();
-      return nextProps.html !== this.elem[method];
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props2 = this.props,
-          tagName = _props2.tagName,
-          html = _props2.html,
-          contentEditable = _props2.contentEditable,
-          props = _objectWithoutProperties(_props2, ['tagName', 'html', 'contentEditable']);
-
-      var Element = tagName || "div";
-
-      return _react2.default.createElement(Element, _extends({}, props, {
-        ref: function ref(elem) {
-          _this2.elem = elem;
-        },
-        dangerouslySetInnerHTML: { __html: html },
-        contentEditable: contentEditable === 'false' ? false : true,
-        onInput: this._onChange,
-        onPaste: this._onPaste
-      }));
-    }
-  }]);
-
-  return ContentEditable;
-}(_react.Component);
-
-exports.default = ContentEditable;
-
-
-/***/ }),
+/* 152 */,
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31442,7 +31240,7 @@ var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _EditDocForm = __webpack_require__(252);
+var _EditDocForm = __webpack_require__(397);
 
 var _EditDocForm2 = _interopRequireDefault(_EditDocForm);
 
@@ -42777,460 +42575,7 @@ module.exports = ReactDOMInvalidARIAHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 252 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactInputAutosize = __webpack_require__(123);
-
-var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
-
-var _lodash = __webpack_require__(31);
-
-var _reactDnd = __webpack_require__(32);
-
-var _reactDndHtml5Backend = __webpack_require__(340);
-
-var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
-
-var _update = __webpack_require__(368);
-
-var _update2 = _interopRequireDefault(_update);
-
-var _shortid = __webpack_require__(56);
-
-var _shortid2 = _interopRequireDefault(_shortid);
-
-var _Instructions = __webpack_require__(151);
-
-var _Instructions2 = _interopRequireDefault(_Instructions);
-
-var _Problems = __webpack_require__(376);
-
-var _Problems2 = _interopRequireDefault(_Problems);
-
-var _ButtonRow = __webpack_require__(381);
-
-var _ButtonRow2 = _interopRequireDefault(_ButtonRow);
-
-var _Toolbox = __webpack_require__(382);
-
-var _Toolbox2 = _interopRequireDefault(_Toolbox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import { Meteor } from 'meteor/meteor';
-// import { createContainer } from 'meteor/react-meteor-data';
-
-
-var NewDocForm = function (_React$Component) {
-  _inherits(NewDocForm, _React$Component);
-
-  function NewDocForm(props) {
-    _classCallCheck(this, NewDocForm);
-
-    var _this = _possibleConstructorReturn(this, (NewDocForm.__proto__ || Object.getPrototypeOf(NewDocForm)).call(this, props));
-
-    _this.updateDoc = _this.updateDoc.bind(_this);
-    _this.handleInput = _this.handleInput.bind(_this);
-    _this.handleQuestionInput = _this.handleQuestionInput.bind(_this);
-    _this.handleTextPiecesInput = _this.handleTextPiecesInput.bind(_this);
-    _this.moveProblem = _this.moveProblem.bind(_this);
-    _this.addNewProblem = _this.addNewProblem.bind(_this);
-    _this.makeProbVisible = _this.makeProbVisible.bind(_this);
-    _this.dropBlank = _this.dropBlank.bind(_this);
-    _this.moveBlank = _this.moveBlank.bind(_this);
-    _this.removeBlank = _this.removeBlank.bind(_this);
-    _this.removeProblem = _this.removeProblem.bind(_this);
-    _this.makeProbVisible = _this.makeProbVisible.bind(_this);
-    _this.splitText = _this.splitText.bind(_this);
-    _this.rejoinText = _this.rejoinText.bind(_this);
-    _this.state = {
-      docName: '',
-      instructions: 'Fill in the blanks with the words in the bank.',
-      includeWordBank: true,
-      problems: [{
-        id: _shortid2.default.generate(),
-        textPieces: [{
-          text: "Three days was simply not a(n)",
-          blank: false,
-          id: _shortid2.default.generate()
-        }, {
-          text: "acceptable",
-          blank: true,
-          id: _shortid2.default.generate()
-        }, {
-          text: "amount of time to complete such a lot of work.",
-          blank: false,
-          id: _shortid2.default.generate()
-        }]
-      }, {
-        id: _shortid2.default.generate(),
-        textPieces: []
-      }, {
-        id: _shortid2.default.generate(),
-        textPieces: []
-      }],
-      submitStatus: ''
-    };
-    return _this;
-  }
-
-  // componentWillReceiveProps(nextProps) {
-  //     if (nextProps.doc !== {}) {
-  //     this.setState( {doc: nextProps.doc});
-  //   }
-  // }
-
-  _createClass(NewDocForm, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'edit-doc-container' },
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement('input', {
-              name: 'docName',
-              value: this.state.docName,
-              placeholder: 'Document name   ',
-              className: 'header-lg',
-              onChange: this.handleInput()
-            }),
-            _react2.default.createElement(_Instructions2.default, {
-              instructions: this.state.instructions,
-              edit: true,
-              handleInput: this.handleInput
-            }),
-            _react2.default.createElement(
-              'div',
-              { className: 'section' },
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement('input', {
-                  name: 'includeWordBank',
-                  type: 'checkbox',
-                  checked: this.state.includeWordBank,
-                  onChange: this.handleInput()
-                }),
-                'Include word bank'
-              ),
-              _react2.default.createElement(
-                'div',
-                { style: { fontStyle: 'italic' } },
-                'Word bank will be automatically populated using the words in the blanks'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'section problems-container' },
-              _react2.default.createElement(_Problems2.default, {
-                problems: this.state.problems,
-                moveProblem: this.moveProblem,
-                addNewProblem: this.addNewProblem,
-                makeProbVisible: this.makeProbVisible,
-                removeBlank: this.removeBlank,
-                handleQuestionInput: this.handleQuestionInput,
-                handleTextPiecesInput: this.handleTextPiecesInput,
-                dropBlank: this.dropBlank,
-                moveBlank: this.moveBlank
-              }),
-              _react2.default.createElement(_Toolbox2.default, {
-                removeProblem: this.removeProblem,
-                makeProbVisible: this.makeProbVisible,
-                splitText: this.splitText,
-                rejoinText: this.rejoinText
-              })
-            ),
-            _react2.default.createElement(
-              _ButtonRow2.default,
-              null,
-              _react2.default.createElement(
-                'button',
-                null,
-                'Cancel'
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'button_green', onClick: this.updateDoc },
-                'Save Changes'
-              )
-            )
-          )
-        )
-      );
-    }
-  }, {
-    key: 'dropBlank',
-    value: function dropBlank(problemIdx, textPieceIdx) {
-      // Don't allow blank to be dropped on a spot right after another blank
-      var prevTextPiece = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
-      if (prevTextPiece && prevTextPiece.blank) {
-        return;
-      }
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems[problemIdx].textPieces.splice(textPieceIdx, 0, {
-        text: '',
-        blank: true,
-        id: _shortid2.default.generate()
-      });
-      var nextTextPiece = problems[problemIdx].textPieces[textPieceIdx + 1];
-      if (!nextTextPiece) {
-        problems[problemIdx].textPieces.splice(textPieceIdx + 1, 0, {
-          text: '',
-          blank: false,
-          id: _shortid2.default.generate()
-        });
-      }
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'moveBlank',
-    value: function moveBlank(dragIndex, hoverIndex, problemIdx) {
-      // If user tries to move last blank to space after last textPiece text,
-      // don't move
-      if (hoverIndex - dragIndex === 1) {
-        return dragIndex;
-      }
-      // Don't allow blank to be moved to a spot right after another blank
-      var prevTextPiece = this.state.problems[problemIdx].textPieces[hoverIndex - 1];
-      if (prevTextPiece && prevTextPiece.blank) {
-        return;
-      }
-      if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].textPieces.length) {
-        return dragIndex;
-      }
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      var textPieces = problems[problemIdx].textPieces;
-      var dragBlank = textPieces.splice(dragIndex, 1)[0];
-      textPieces.splice(hoverIndex, 0, dragBlank);
-      // Delete blank textPiece at the end of the problem text that's
-      // automatically added after a blank added to the end if this blank
-      // is moved.
-      if (textPieces[dragIndex + 1] && textPieces[dragIndex + 1].text === '') {
-        textPieces.splice(dragIndex + 1, 1);
-      }
-      if (dragIndex === 0 && !textPieces[hoverIndex + 1]) {
-        textPieces.push({
-          text: '',
-          blank: false,
-          id: _shortid2.default.generate()
-        });
-      }
-      this.setState({ problems: problems });
-      var newIndex = problems[problemIdx].textPieces.indexOf(dragBlank);
-      console.log(newIndex);
-      return newIndex;
-    }
-  }, {
-    key: 'removeBlank',
-    value: function removeBlank(problemIdx, textPieceIdx) {
-      event.preventDefault();
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      var textPieces = problems[problemIdx].textPieces;
-      textPieces.splice(textPieceIdx, 1);
-      if (textPieceIdx > 0) {
-        // Combine the textPiece text that followed the blank with the textPiece text
-        // that came before the blank. Inner if condition checks if there
-        // were text, because there weren't, it messes up placeholder text.
-        if (textPieces[textPieceIdx].text) {
-          textPieces[textPieceIdx - 1].text += ' ' + textPieces.splice(textPieceIdx, 1)[0].text;
-        } else {
-          textPieces.splice(textPieceIdx, 1);
-        }
-      }
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'moveProblem',
-    value: function moveProblem(dragIndex, hoverIndex) {
-      // const problems = cloneDeep(this.state.problems);
-      // const dragProblem = problems.splice(dragIndex, 1)[0];
-      // problems.splice(hoverIndex, 0, dragProblem);
-      // this.setState({ problems });
-
-      var problems = this.state.problems;
-
-      var dragProblem = problems[dragIndex];
-      dragProblem.opaque = true;
-      this.setState((0, _update2.default)(this.state, {
-        problems: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragProblem]]
-        }
-      }));
-    }
-  }, {
-    key: 'addNewProblem',
-    value: function addNewProblem(idx) {
-      var problem = {
-        id: _shortid2.default.generate(),
-        textPieces: [{
-          text: '',
-          blank: false,
-          id: _shortid2.default.generate()
-        }],
-        opaque: true
-      };
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems.splice(idx, 0, problem);
-      this.setState(function (prevState) {
-        return { problems: problems };
-      });
-    }
-  }, {
-    key: 'removeProblem',
-    value: function removeProblem(idx) {
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems.splice(idx, 1);
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'makeProbVisible',
-    value: function makeProbVisible(idx) {
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems[idx].opaque = false;
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'handleInput',
-    value: function handleInput() {
-      var _this2 = this;
-
-      return function (event) {
-        var name = event.target.name;
-        var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        _this2.setState(_defineProperty({}, name, value));
-      };
-    }
-  }, {
-    key: 'handleQuestionInput',
-    value: function handleQuestionInput(problemIdx) {
-      var _this3 = this;
-
-      return function (event) {
-        var value = event.target.value;
-        var problems = (0, _lodash.cloneDeep)(_this3.state.problems);
-        problems[problemIdx].question = value;
-        _this3.setState({ problems: problems });
-      };
-    }
-  }, {
-    key: 'handleTextPiecesInput',
-    value: function handleTextPiecesInput(problemIdx, textPieceIdx, value) {
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems[problemIdx].textPieces[textPieceIdx].text = value;
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'handleProblemChange',
-    value: function handleProblemChange(value) {
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      problems[problemIdx].textPieces[textPieceIdx].text = value;
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'splitText',
-    value: function splitText() {
-      // Goes through the textPieces of each problem and splits the text
-      // of each textPiece so that every word is a textPiece.
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      for (var h = 0; h < problems.length; h++) {
-        var textPieces = problems[h].textPieces;
-        var newTextPieces = [];
-        for (var i = 0; i < textPieces.length; i++) {
-          var textPiece = textPieces[i];
-          if (textPiece.blank) {
-            newTextPieces.push(textPiece);
-          } else {
-            var textArr = textPiece.text.split(' ');
-            for (var j = 0; j < textArr.length; j++) {
-              newTextPieces.push({
-                text: textArr[j],
-                blank: false,
-                id: _shortid2.default.generate()
-              });
-            }
-          }
-        }
-        problems[h].textPieces = newTextPieces;
-      }
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'rejoinText',
-    value: function rejoinText() {
-      var problems = (0, _lodash.cloneDeep)(this.state.problems);
-      for (var h = 0; h < problems.length; h++) {
-        var textPieces = problems[h].textPieces;
-        var newTextPieces = [];
-        // debugger;
-        for (var i = 0; i < textPieces.length; i++) {
-          var textPiece = textPieces[i];
-          if (textPiece.blank) {
-            newTextPieces.push(textPiece);
-          } else {
-            // let prevTextPiece = textPieces[i-1];
-            var prevTextPiece = newTextPieces[newTextPieces.length - 1];
-            if (i === 0 || prevTextPiece.blank) {
-              newTextPieces.push(textPiece);
-            } else {
-              prevTextPiece.text += ' ' + textPiece.text;
-            }
-          }
-        }
-        problems[h].textPieces = newTextPieces;
-      }
-      this.setState({ problems: problems });
-    }
-  }, {
-    key: 'updateDoc',
-    value: function updateDoc(event) {
-      event.preventDefault();
-      // const { docName, problems } = this.state;
-      // // make sure to grab the uneditable fields of the document so that
-      // // they are not erased with the update method. Update method replaces
-      // // the document if not mongo update modifiers are specified. It does
-      // // not replace the field _id.
-      // // They will probably be this.props.<whatever>
-      // Meteor.call('documents.upsert', { docName, problems },
-      //   (err, res) => {
-      //     const submitStatus = err ? 'Error, check console log' : 'SUCCESS!';
-      //     console.log(err);
-      //     this.setState({ submitStatus });
-      // });
-    }
-  }]);
-
-  return NewDocForm;
-}(_react2.default.Component);
-
-exports.default = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(NewDocForm);
-
-/***/ }),
+/* 252 */,
 /* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50153,546 +49498,10 @@ module.exports = 0;
 
 
 /***/ }),
-/* 376 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Problem = __webpack_require__(89);
-
-var _Problem2 = _interopRequireDefault(_Problem);
-
-var _DraggableProblem = __webpack_require__(377);
-
-var _DraggableProblem2 = _interopRequireDefault(_DraggableProblem);
-
-var _TextPieces = __webpack_require__(378);
-
-var _TextPieces2 = _interopRequireDefault(_TextPieces);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Problems = function (_React$Component) {
-  _inherits(Problems, _React$Component);
-
-  function Problems(props) {
-    _classCallCheck(this, Problems);
-
-    var _this = _possibleConstructorReturn(this, (Problems.__proto__ || Object.getPrototypeOf(Problems)).call(this, props));
-
-    _this.handleMouse = _this.handleMouse.bind(_this);
-    _this.state = {
-      draggable: true
-    };
-    return _this;
-  }
-
-  _createClass(Problems, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var Problem = this.state.draggable ? _DraggableProblem2.default : _Problem2.default;
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.problems.map(function (problem, idx) {
-          return _react2.default.createElement(
-            Problem,
-            _extends({
-              key: problem.id,
-              id: problem.id,
-              index: idx
-            }, _this2.props, {
-              question: problem.question,
-              opaque: problem.opaque
-            }),
-            _react2.default.createElement('div', { className: 'move-box' }),
-            _react2.default.createElement(
-              'div',
-              {
-                className: 'problem-text',
-                onMouseEnter: _this2.handleMouse('enter'),
-                onMouseLeave: _this2.handleMouse('leave')
-              },
-              idx + 1,
-              '.',
-              ' ',
-              _react2.default.createElement(_TextPieces2.default, _extends({
-                problem: _this2.props.problems[idx],
-                problemIdx: idx
-              }, _this2.props))
-            )
-          );
-        })
-      );
-    }
-  }, {
-    key: 'handleMouse',
-    value: function handleMouse(direction) {
-      var _this3 = this;
-
-      return function (event) {
-        var draggable = direction === 'enter' ? false : true;
-        _this3.setState({ draggable: draggable });
-      };
-    }
-  }]);
-
-  return Problems;
-}(_react2.default.Component);
-
-exports.default = Problems;
-
-//Problem props:
-// moveProblem={this.props.moveProblem}
-// addNewProblem={this.props.addNewProblem}
-// makeProbVisible={this.props.makeProbVisible}
-// removeBlank={this.props.removeBlank}
-
-//TextPieces props:
-// handleTextPiecesInput={this.props.handleTextPiecesInput}
-// removeBlank={this.props.removeBlank}
-// dropBlank={this.props.dropBlank}
-// moveBlank={this.props.moveBlank}
-
-/***/ }),
-/* 377 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(15);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(23);
-
-var _reactDnd = __webpack_require__(32);
-
-var _ItemTypes = __webpack_require__(58);
-
-var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
-
-var _lodash = __webpack_require__(31);
-
-var _Problem = __webpack_require__(89);
-
-var _Problem2 = _interopRequireDefault(_Problem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var problemSource = {
-  beginDrag: function beginDrag(props) {
-    return {
-      id: props.id,
-      index: props.index
-    };
-  },
-  endDrag: function endDrag(props, monitor) {
-    props.makeProbVisible(monitor.getItem().index);
-  }
-};
-
-var problemTarget = {
-  hover: function hover(props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var hoverIndex = props.index;
-
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    // Determine rectangle on screen
-    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
-
-    // Get vertical middle
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-    // Determine mouse position
-    var clientOffset = monitor.getClientOffset();
-
-    // Get pixels to the top
-    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-    // Dragging downwards
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    // Dragging upwards
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
-
-    props.moveProblem(dragIndex, hoverIndex);
-    monitor.getItem().index = hoverIndex;
-  }
-};
-
-var newProblemTarget = {
-  hover: function hover(props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var hoverIndex = props.index;
-    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
-
-    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-    var clientOffset = monitor.getClientOffset();
-
-    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    // if dragIndex === 0 , => false
-    if (dragIndex !== null) {
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      props.moveProblem(dragIndex, hoverIndex);
-    } else {
-      props.addNewProblem(hoverIndex);
-    }
-    monitor.getItem().index = hoverIndex;
-  }
-};
-
-var newBlankTarget = {};
-
-exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(_ItemTypes2.default.PROBLEM, problemSource, function (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.PROBLEM, problemTarget, function (connect) {
-  return {
-    connectDropTarget: connect.dropTarget()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWPROBLEM, newProblemTarget, function (connect) {
-  return {
-    connectAnotherDropTarget: connect.dropTarget()
-  };
-}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, newBlankTarget, function (connect, monitor) {
-  return {
-    connectNewBlankDropTarget: connect.dropTarget(),
-    isNewBlankOver: monitor.isOver(),
-    didNewBlankDrop: monitor.didDrop(),
-    newBlank: monitor.getItem()
-  };
-}))(_Problem2.default);
-
-/***/ }),
-/* 378 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _TextPiece = __webpack_require__(379);
-
-var _TextPiece2 = _interopRequireDefault(_TextPiece);
-
-var _reactInputAutosize = __webpack_require__(123);
-
-var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
-
-var _reactDom = __webpack_require__(23);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactSimpleContenteditable = __webpack_require__(152);
-
-var _reactSimpleContenteditable2 = _interopRequireDefault(_reactSimpleContenteditable);
-
-var _server = __webpack_require__(391);
-
-var _server2 = _interopRequireDefault(_server);
-
-var _ButtonRow = __webpack_require__(381);
-
-var _ButtonRow2 = _interopRequireDefault(_ButtonRow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TextPieces = function (_React$Component) {
-  _inherits(TextPieces, _React$Component);
-
-  function TextPieces() {
-    _classCallCheck(this, TextPieces);
-
-    return _possibleConstructorReturn(this, (TextPieces.__proto__ || Object.getPrototypeOf(TextPieces)).apply(this, arguments));
-  }
-
-  _createClass(TextPieces, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var test = _server2.default.renderToStaticMarkup(this.textPieces());
-      // debugger;
-      return _react2.default.createElement(_reactSimpleContenteditable2.default, {
-        html: _server2.default.renderToStaticMarkup(this.textPieces()),
-        className: 'my-class',
-        tagName: 'div',
-        onChange: function onChange(event, value) {
-          return _this2.props.handleTextPiecesInput(_this2.props.problemIdx, 3, value);
-        },
-        contentEditable: 'plaintext-only'
-      });
-    }
-  }, {
-    key: 'textPieces',
-    value: function textPieces() {
-      var _this3 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'new-form-text-pieces' },
-        this.props.problem.textPieces.map(function (textPiece, idx) {
-          if (textPiece.blank) {
-            return _react2.default.createElement(
-              'div',
-              { key: textPiece.id },
-              _react2.default.createElement(
-                'div',
-                { className: 'blank' },
-                _react2.default.createElement('input', {
-                  placeholder: 'Answer blank',
-                  className: 'new-form-answer-input',
-                  value: _this3.props.problem.textPieces[idx].text,
-                  onChange: function onChange(event) {
-                    return _this3.props.handleTextPiecesInput(_this3.props.problemIdx, idx, event.target.value);
-                  }
-                }),
-                _react2.default.createElement(
-                  'button',
-                  { className: 'modify-blank remove-blank', onClick: function onClick(event) {
-                      return _this3.props.removeBlank(_this3.props.problemIdx, idx);
-                    } },
-                  '-'
-                )
-              )
-            );
-          } else {
-            return _this3.props.problem.textPieces[idx].text;
-          }
-        })
-      );
-    }
-  }, {
-    key: 'textPieces1',
-    value: function textPieces1() {
-      var _this4 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'new-form-text-pieces' },
-        this.props.problem.textPieces.map(function (textPiece, idx) {
-          if (textPiece.blank) {
-            return _react2.default.createElement(
-              'div',
-              { key: textPiece.id },
-              _react2.default.createElement(
-                'div',
-                { className: 'blank' },
-                _react2.default.createElement('input', {
-                  placeholder: 'Answer blank',
-                  className: 'new-form-answer-input',
-                  value: _this4.props.problem.textPieces[idx].text,
-                  onChange: function onChange(event) {
-                    return _this4.props.handleTextPiecesInput(_this4.props.problemIdx, idx, event.target.value);
-                  }
-                }),
-                _react2.default.createElement(
-                  'button',
-                  { className: 'modify-blank remove-blank', onClick: function onClick(event) {
-                      return _this4.props.removeBlank(_this4.props.problemIdx, idx);
-                    } },
-                  '-'
-                )
-              )
-            );
-          } else {
-            var placeholder = idx === 0 ? 'Problem text' : '...continue text';
-            var minWidth = idx === 0 ? '' : '10';
-
-            return _react2.default.createElement(
-              'div',
-              { key: textPiece.id },
-              _this4.props.problem.textPieces[idx].text
-            );
-          }
-        })
-      );
-    }
-  }]);
-
-  return TextPieces;
-}(_react2.default.Component);
-
-exports.default = TextPieces;
-
-/***/ }),
-/* 379 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(15);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(23);
-
-var _reactDnd = __webpack_require__(32);
-
-var _ItemTypes = __webpack_require__(58);
-
-var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var textPieceTarget = {
-  hover: function hover(props, monitor, component) {
-    var dragIndex = monitor.getItem().index;
-    var problemIdx = props.problemIdx;
-    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
-
-    var hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-
-    var clientOffset = monitor.getClientOffset();
-
-    var hoverClientX = clientOffset.x - hoverBoundingRect.left;
-
-    var hoverIndex = props.textPieceIdx;
-    if (hoverClientX > hoverMiddleX) {
-      hoverIndex++;
-    }
-    if (dragIndex !== null) {
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-        return;
-      }
-      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-        return;
-      }
-      console.log(dragIndex, hoverIndex);
-      monitor.getItem().index = props.moveBlank(dragIndex, hoverIndex, problemIdx);
-    } else {
-      console.log(dragIndex, hoverIndex);
-      props.dropBlank(problemIdx, hoverIndex);
-      monitor.getItem().index = hoverIndex;
-    }
-  }
-};
-
-var TextPiece = function (_React$Component) {
-  _inherits(TextPiece, _React$Component);
-
-  function TextPiece() {
-    _classCallCheck(this, TextPiece);
-
-    return _possibleConstructorReturn(this, (TextPiece.__proto__ || Object.getPrototypeOf(TextPiece)).apply(this, arguments));
-  }
-
-  _createClass(TextPiece, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          connectDropTarget = _props.connectDropTarget,
-          opaque = _props.opaque;
-      // const isActive = canDrop && isOver;
-
-      var opacity = opaque ? 0 : 1;
-      return connectDropTarget(_react2.default.createElement(
-        'div',
-        { style: { opacity: opacity } },
-        this.props.children
-      ));
-    }
-  }]);
-
-  return TextPiece;
-}(_react2.default.Component);
-
-exports.default = (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, textPieceTarget, function (connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget()
-    // isOver: monitor.isOver(),
-    // canDrop: monitor.canDrop(),
-  };
-})(TextPiece);
-
-/***/ }),
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
 /* 380 */,
 /* 381 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -50744,297 +49553,9 @@ var ButtonRow = function (_React$Component) {
 exports.default = ButtonRow;
 
 /***/ }),
-/* 382 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _NewBlank = __webpack_require__(383);
-
-var _NewBlank2 = _interopRequireDefault(_NewBlank);
-
-var _NewProblem = __webpack_require__(384);
-
-var _NewProblem2 = _interopRequireDefault(_NewProblem);
-
-var _shortid = __webpack_require__(56);
-
-var _shortid2 = _interopRequireDefault(_shortid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Toolbox = function (_React$Component) {
-  _inherits(Toolbox, _React$Component);
-
-  function Toolbox() {
-    _classCallCheck(this, Toolbox);
-
-    return _possibleConstructorReturn(this, (Toolbox.__proto__ || Object.getPrototypeOf(Toolbox)).apply(this, arguments));
-  }
-
-  _createClass(Toolbox, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'toolbox' },
-        _react2.default.createElement(
-          'div',
-          { className: 'toolbox-title' },
-          'Toolbox'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'toolbox-instructions' },
-          'Drag and drop the items below to modify the document'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'tools' },
-          _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible }),
-          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate(), splitText: this.props.splitText, rejoinText: this.props.rejoinText })
-        )
-      );
-    }
-  }]);
-
-  return Toolbox;
-}(_react2.default.Component);
-
-exports.default = Toolbox;
-
-/***/ }),
-/* 383 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(15);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(23);
-
-var _reactDnd = __webpack_require__(32);
-
-var _ItemTypes = __webpack_require__(58);
-
-var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
-
-var _lodash = __webpack_require__(31);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var newBlankSource = {
-  beginDrag: function beginDrag(props, monitor) {
-    props.splitText();
-    return {
-      id: props.id,
-      index: null,
-      dragging: monitor.isDragging()
-    };
-  },
-  endDrag: function endDrag(props) {
-    // props.rejoinText();
-  }
-};
-
-var NewBlank = function (_React$Component) {
-  _inherits(NewBlank, _React$Component);
-
-  function NewBlank() {
-    _classCallCheck(this, NewBlank);
-
-    return _possibleConstructorReturn(this, (NewBlank.__proto__ || Object.getPrototypeOf(NewBlank)).apply(this, arguments));
-  }
-
-  _createClass(NewBlank, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          isDragging = _props.isDragging,
-          connectDragSource = _props.connectDragSource;
-
-
-      return connectDragSource(_react2.default.createElement(
-        'div',
-        { className: 'blank', style: { margin: '5px', cursor: 'move' } },
-        _react2.default.createElement('input', {
-          placeholder: 'New blank',
-          className: 'new-form-answer-input',
-          style: { width: '115px', backgroundColor: 'white', cursor: 'move' },
-          disabled: true
-        }),
-        _react2.default.createElement(
-          'button',
-          { className: 'modify-blank remove-blank' },
-          '-'
-        )
-      ));
-    }
-  }]);
-
-  return NewBlank;
-}(_react2.default.Component);
-
-exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWBLANK, newBlankSource, function (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-})(NewBlank);
-
-
-{/* <div style={{margin: '5px', cursor: 'move', }}>
-   <input
-     className='new-form-answer-input'
-     style={{cursor: 'move'}}
-     disabled
-     placeholder='New blank'
-   />
-  </div> */}
-
-/***/ }),
-/* 384 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(15);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(23);
-
-var _reactDnd = __webpack_require__(32);
-
-var _ItemTypes = __webpack_require__(58);
-
-var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
-
-var _Problem = __webpack_require__(89);
-
-var _Problem2 = _interopRequireDefault(_Problem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var newProblemSource = {
-  beginDrag: function beginDrag(props) {
-    return {
-      id: props.id,
-      index: null
-    };
-  },
-  endDrag: function endDrag(props, monitor) {
-    if (!monitor.didDrop() && monitor.getItem().index !== null) {
-      props.removeProblem(monitor.getItem().index);
-    }
-    if (monitor.didDrop()) {
-      props.makeProbVisible(monitor.getItem().index);
-    }
-  }
-};
-
-var NewProblem = function (_React$Component) {
-  _inherits(NewProblem, _React$Component);
-
-  function NewProblem() {
-    _classCallCheck(this, NewProblem);
-
-    return _possibleConstructorReturn(this, (NewProblem.__proto__ || Object.getPrototypeOf(NewProblem)).apply(this, arguments));
-  }
-
-  _createClass(NewProblem, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          isDragging = _props.isDragging,
-          connectDragSource = _props.connectDragSource;
-
-
-      return connectDragSource(_react2.default.createElement(
-        'div',
-        { className: 'problem', style: { cursor: 'move' } },
-        _react2.default.createElement(
-          'div',
-          { className: 'problem-text', style: { border: '1px dashed #ababab' } },
-          '1. ',
-          _react2.default.createElement(
-            'div',
-            { className: 'new-form-text-pieces' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement('input', { style: { cursor: 'move', width: '110px' }, disabled: true, placeholder: 'New Problem', className: 'new-form-text-piece-input' })
-            )
-          )
-        )
-      ));
-    }
-  }]);
-
-  return NewProblem;
-}(_react2.default.Component);
-
-exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWPROBLEM, newProblemSource, function (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-})(NewProblem);
-
-/***/ }),
+/* 382 */,
+/* 383 */,
+/* 384 */,
 /* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51535,168 +50056,1320 @@ function shuffle(array) {
 }
 
 /***/ }),
-/* 391 */
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(392);
-
-
-/***/ }),
-/* 392 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var ReactDefaultInjection = __webpack_require__(168);
-var ReactServerRendering = __webpack_require__(393);
-var ReactVersion = __webpack_require__(246);
-
-ReactDefaultInjection.inject();
-
-var ReactDOMServer = {
-  renderToString: ReactServerRendering.renderToString,
-  renderToStaticMarkup: ReactServerRendering.renderToStaticMarkup,
-  version: ReactVersion
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  PROBLEM: 'problem',
+  NEWBLANK: 'newBlank',
+  NEWPROBLEM: 'newProblem'
 };
 
-module.exports = ReactDOMServer;
-
 /***/ }),
-/* 393 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
 
 
-var _prodInvariant = __webpack_require__(3);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var React = __webpack_require__(22);
-var ReactDOMContainerInfo = __webpack_require__(242);
-var ReactDefaultBatchingStrategy = __webpack_require__(220);
-var ReactInstrumentation = __webpack_require__(11);
-var ReactMarkupChecksum = __webpack_require__(244);
-var ReactReconciler = __webpack_require__(24);
-var ReactServerBatchingStrategy = __webpack_require__(394);
-var ReactServerRenderingTransaction = __webpack_require__(215);
-var ReactUpdates = __webpack_require__(13);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var emptyObject = __webpack_require__(37);
-var instantiateReactComponent = __webpack_require__(113);
-var invariant = __webpack_require__(1);
+var _react = __webpack_require__(4);
 
-var pendingTransactions = 0;
+var _react2 = _interopRequireDefault(_react);
 
-/**
- * @param {ReactElement} element
- * @return {string} the HTML markup
- */
-function renderToStringImpl(element, makeStaticMarkup) {
-  var transaction;
-  try {
-    ReactUpdates.injection.injectBatchingStrategy(ReactServerBatchingStrategy);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    transaction = ReactServerRenderingTransaction.getPooled(makeStaticMarkup);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    pendingTransactions++;
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    return transaction.perform(function () {
-      var componentInstance = instantiateReactComponent(element, true);
-      var markup = ReactReconciler.mountComponent(componentInstance, transaction, null, ReactDOMContainerInfo(), emptyObject, 0 /* parentDebugID */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Problem = function (_React$Component) {
+  _inherits(Problem, _React$Component);
+
+  function Problem() {
+    _classCallCheck(this, Problem);
+
+    return _possibleConstructorReturn(this, (Problem.__proto__ || Object.getPrototypeOf(Problem)).apply(this, arguments));
+  }
+
+  _createClass(Problem, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // Remove new blank if new blank drag item leaves problem and reset its index.
+      if (nextProps.isNewBlankOver !== this.props.isNewBlankOver && !nextProps.isNewBlankOver && this.props.newBlank.index !== null && !nextProps.didNewBlankDrop) {
+        this.props.removeBlank(this.props.index, this.props.newBlank.index);
+        this.props.newBlank.index = null;
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var wrapper = function wrapper(rendered) {
+        return rendered;
+      };
+      var style = {};
+      if (this.props.connectDragSource) {
+        var _props = this.props,
+            isDragging = _props.isDragging,
+            connectDragSource = _props.connectDragSource,
+            connectDropTarget = _props.connectDropTarget,
+            connectAnotherDropTarget = _props.connectAnotherDropTarget,
+            connectNewBlankDropTarget = _props.connectNewBlankDropTarget,
+            opaque = _props.opaque;
+
+        var opacity = isDragging || opaque ? 0 : 1;
+        style = { opacity: opacity };
+        wrapper = function wrapper(rendered) {
+          return connectDragSource(connectDropTarget(connectAnotherDropTarget(connectNewBlankDropTarget(rendered))));
+        };
+      }
+
+      return wrapper(_react2.default.createElement(
+        'div',
+        { style: style, className: 'problem' },
+        this.props.children
+      ));
+    }
+  }]);
+
+  return Problem;
+}(_react2.default.Component);
+
+exports.default = Problem;
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactInputAutosize = __webpack_require__(123);
+
+var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
+
+var _lodash = __webpack_require__(31);
+
+var _reactDnd = __webpack_require__(32);
+
+var _reactDndHtml5Backend = __webpack_require__(340);
+
+var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
+
+var _update = __webpack_require__(368);
+
+var _update2 = _interopRequireDefault(_update);
+
+var _shortid = __webpack_require__(56);
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
+var _Instructions = __webpack_require__(151);
+
+var _Instructions2 = _interopRequireDefault(_Instructions);
+
+var _Problems = __webpack_require__(398);
+
+var _Problems2 = _interopRequireDefault(_Problems);
+
+var _ButtonRow = __webpack_require__(381);
+
+var _ButtonRow2 = _interopRequireDefault(_ButtonRow);
+
+var _Toolbox = __webpack_require__(402);
+
+var _Toolbox2 = _interopRequireDefault(_Toolbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import { Meteor } from 'meteor/meteor';
+// import { createContainer } from 'meteor/react-meteor-data';
+
+
+var NewDocForm = function (_React$Component) {
+  _inherits(NewDocForm, _React$Component);
+
+  function NewDocForm(props) {
+    _classCallCheck(this, NewDocForm);
+
+    var _this = _possibleConstructorReturn(this, (NewDocForm.__proto__ || Object.getPrototypeOf(NewDocForm)).call(this, props));
+
+    _this.updateDoc = _this.updateDoc.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    _this.handleQuestionInput = _this.handleQuestionInput.bind(_this);
+    _this.handleTextPiecesInput = _this.handleTextPiecesInput.bind(_this);
+    _this.moveProblem = _this.moveProblem.bind(_this);
+    _this.addNewProblem = _this.addNewProblem.bind(_this);
+    _this.makeProbVisible = _this.makeProbVisible.bind(_this);
+    _this.dropBlank = _this.dropBlank.bind(_this);
+    _this.moveBlank = _this.moveBlank.bind(_this);
+    _this.removeBlank = _this.removeBlank.bind(_this);
+    _this.removeProblem = _this.removeProblem.bind(_this);
+    _this.makeProbVisible = _this.makeProbVisible.bind(_this);
+    _this.splitText = _this.splitText.bind(_this);
+    _this.rejoinText = _this.rejoinText.bind(_this);
+    _this.state = {
+      docName: '',
+      instructions: 'Fill in the blanks with the words in the bank.',
+      includeWordBank: true,
+      problems: [{
+        id: _shortid2.default.generate(),
+        textPieces: [{
+          text: "Three days was simply not a(n)",
+          blank: false,
+          id: _shortid2.default.generate()
+        }, {
+          text: "acceptable",
+          blank: true,
+          id: _shortid2.default.generate()
+        }, {
+          text: "amount of time to complete such a lot of work.",
+          blank: false,
+          id: _shortid2.default.generate()
+        }]
+      }, {
+        id: _shortid2.default.generate(),
+        textPieces: []
+      }, {
+        id: _shortid2.default.generate(),
+        textPieces: []
+      }],
+      submitStatus: ''
+    };
+    return _this;
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //     if (nextProps.doc !== {}) {
+  //     this.setState( {doc: nextProps.doc});
+  //   }
+  // }
+
+  _createClass(NewDocForm, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'edit-doc-container' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('input', {
+              name: 'docName',
+              value: this.state.docName,
+              placeholder: 'Document name   ',
+              className: 'header-lg',
+              onChange: this.handleInput()
+            }),
+            _react2.default.createElement(_Instructions2.default, {
+              instructions: this.state.instructions,
+              edit: true,
+              handleInput: this.handleInput
+            }),
+            _react2.default.createElement(
+              'div',
+              { className: 'section' },
+              _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement('input', {
+                  name: 'includeWordBank',
+                  type: 'checkbox',
+                  checked: this.state.includeWordBank,
+                  onChange: this.handleInput()
+                }),
+                'Include word bank'
+              ),
+              _react2.default.createElement(
+                'div',
+                { style: { fontStyle: 'italic' } },
+                'Word bank will be automatically populated using the words in the blanks'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'section problems-container' },
+              _react2.default.createElement(_Problems2.default, {
+                problems: this.state.problems,
+                moveProblem: this.moveProblem,
+                addNewProblem: this.addNewProblem,
+                makeProbVisible: this.makeProbVisible,
+                removeBlank: this.removeBlank,
+                handleQuestionInput: this.handleQuestionInput,
+                handleTextPiecesInput: this.handleTextPiecesInput,
+                dropBlank: this.dropBlank,
+                moveBlank: this.moveBlank
+              }),
+              _react2.default.createElement(_Toolbox2.default, {
+                removeProblem: this.removeProblem,
+                makeProbVisible: this.makeProbVisible,
+                splitText: this.splitText,
+                rejoinText: this.rejoinText
+              })
+            ),
+            _react2.default.createElement(
+              _ButtonRow2.default,
+              null,
+              _react2.default.createElement(
+                'button',
+                null,
+                'Cancel'
+              ),
+              _react2.default.createElement(
+                'button',
+                { className: 'button_green', onClick: this.updateDoc },
+                'Save Changes'
+              )
+            )
+          )
+        )
       );
-      if (process.env.NODE_ENV !== 'production') {
-        ReactInstrumentation.debugTool.onUnmountComponent(componentInstance._debugID);
+    }
+  }, {
+    key: 'dropBlank',
+    value: function dropBlank(problemIdx, textPieceIdx) {
+      // Don't allow blank to be dropped on a spot right after another blank
+      var prevTextPiece = this.state.problems[problemIdx].textPieces[textPieceIdx - 1];
+      if (prevTextPiece && prevTextPiece.blank) {
+        return;
       }
-      if (!makeStaticMarkup) {
-        markup = ReactMarkupChecksum.addChecksumToMarkup(markup);
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      problems[problemIdx].textPieces.splice(textPieceIdx, 0, {
+        text: '',
+        blank: true,
+        id: _shortid2.default.generate()
+      });
+      var nextTextPiece = problems[problemIdx].textPieces[textPieceIdx + 1];
+      if (!nextTextPiece) {
+        problems[problemIdx].textPieces.splice(textPieceIdx + 1, 0, {
+          text: '',
+          blank: false,
+          id: _shortid2.default.generate()
+        });
       }
-      return markup;
-    }, null);
-  } finally {
-    pendingTransactions--;
-    ReactServerRenderingTransaction.release(transaction);
-    // Revert to the DOM batching strategy since these two renderers
-    // currently share these stateful modules.
-    if (!pendingTransactions) {
-      ReactUpdates.injection.injectBatchingStrategy(ReactDefaultBatchingStrategy);
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'moveBlank',
+    value: function moveBlank(dragIndex, hoverIndex, problemIdx) {
+      // If user tries to move last blank to space after last textPiece text,
+      // don't move
+      if (hoverIndex - dragIndex === 1) {
+        return dragIndex;
+      }
+      // Don't allow blank to be moved to a spot right after another blank
+      var prevTextPiece = this.state.problems[problemIdx].textPieces[hoverIndex - 1];
+      if (prevTextPiece && prevTextPiece.blank) {
+        return;
+      }
+      if (dragIndex !== 0 && hoverIndex - dragIndex === 2 && hoverIndex === this.state.problems[problemIdx].textPieces.length) {
+        return dragIndex;
+      }
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      var textPieces = problems[problemIdx].textPieces;
+      var dragBlank = textPieces.splice(dragIndex, 1)[0];
+      textPieces.splice(hoverIndex, 0, dragBlank);
+      // Delete blank textPiece at the end of the problem text that's
+      // automatically added after a blank added to the end if this blank
+      // is moved.
+      if (textPieces[dragIndex + 1] && textPieces[dragIndex + 1].text === '') {
+        textPieces.splice(dragIndex + 1, 1);
+      }
+      if (dragIndex === 0 && !textPieces[hoverIndex + 1]) {
+        textPieces.push({
+          text: '',
+          blank: false,
+          id: _shortid2.default.generate()
+        });
+      }
+      this.setState({ problems: problems });
+      var newIndex = problems[problemIdx].textPieces.indexOf(dragBlank);
+      console.log(newIndex);
+      return newIndex;
+    }
+  }, {
+    key: 'removeBlank',
+    value: function removeBlank(problemIdx, textPieceIdx) {
+      event.preventDefault();
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      var textPieces = problems[problemIdx].textPieces;
+      textPieces.splice(textPieceIdx, 1);
+      if (textPieceIdx > 0) {
+        // Combine the textPiece text that followed the blank with the textPiece text
+        // that came before the blank. Inner if condition checks if there
+        // were text, because there weren't, it messes up placeholder text.
+        if (textPieces[textPieceIdx].text) {
+          textPieces[textPieceIdx - 1].text += ' ' + textPieces.splice(textPieceIdx, 1)[0].text;
+        } else {
+          textPieces.splice(textPieceIdx, 1);
+        }
+      }
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'moveProblem',
+    value: function moveProblem(dragIndex, hoverIndex) {
+      // const problems = cloneDeep(this.state.problems);
+      // const dragProblem = problems.splice(dragIndex, 1)[0];
+      // problems.splice(hoverIndex, 0, dragProblem);
+      // this.setState({ problems });
+
+      var problems = this.state.problems;
+
+      var dragProblem = problems[dragIndex];
+      dragProblem.opaque = true;
+      this.setState((0, _update2.default)(this.state, {
+        problems: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragProblem]]
+        }
+      }));
+    }
+  }, {
+    key: 'addNewProblem',
+    value: function addNewProblem(idx) {
+      var problem = {
+        id: _shortid2.default.generate(),
+        textPieces: [{
+          text: '',
+          blank: false,
+          id: _shortid2.default.generate()
+        }],
+        opaque: true
+      };
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      problems.splice(idx, 0, problem);
+      this.setState(function (prevState) {
+        return { problems: problems };
+      });
+    }
+  }, {
+    key: 'removeProblem',
+    value: function removeProblem(idx) {
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      problems.splice(idx, 1);
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'makeProbVisible',
+    value: function makeProbVisible(idx) {
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      problems[idx].opaque = false;
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'handleInput',
+    value: function handleInput() {
+      var _this2 = this;
+
+      return function (event) {
+        var name = event.target.name;
+        var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        _this2.setState(_defineProperty({}, name, value));
+      };
+    }
+  }, {
+    key: 'handleQuestionInput',
+    value: function handleQuestionInput(problemIdx) {
+      var _this3 = this;
+
+      return function (event) {
+        var value = event.target.value;
+        var problems = (0, _lodash.cloneDeep)(_this3.state.problems);
+        problems[problemIdx].question = value;
+        _this3.setState({ problems: problems });
+      };
+    }
+  }, {
+    key: 'handleTextPiecesInput',
+    value: function handleTextPiecesInput(problemIdx, textPieceIdx) {
+      var _this4 = this;
+
+      return function (event) {
+        var value = event.target.value;
+        var problems = (0, _lodash.cloneDeep)(_this4.state.problems);
+        problems[problemIdx].textPieces[textPieceIdx].text = value;
+        _this4.setState({ problems: problems });
+      };
+    }
+  }, {
+    key: 'splitText',
+    value: function splitText() {
+      // Goes through the textPieces of each problem and splits the text
+      // of each textPiece so that every word is a textPiece.
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      for (var h = 0; h < problems.length; h++) {
+        var textPieces = problems[h].textPieces;
+        var newTextPieces = [];
+        for (var i = 0; i < textPieces.length; i++) {
+          var textPiece = textPieces[i];
+          if (textPiece.blank) {
+            newTextPieces.push(textPiece);
+          } else {
+            var textArr = textPiece.text.split(' ');
+            for (var j = 0; j < textArr.length; j++) {
+              newTextPieces.push({
+                text: textArr[j],
+                blank: false,
+                id: _shortid2.default.generate()
+              });
+            }
+          }
+        }
+        problems[h].textPieces = newTextPieces;
+      }
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'rejoinText',
+    value: function rejoinText() {
+      var problems = (0, _lodash.cloneDeep)(this.state.problems);
+      for (var h = 0; h < problems.length; h++) {
+        var textPieces = problems[h].textPieces;
+        var newTextPieces = [];
+        // debugger;
+        for (var i = 0; i < textPieces.length; i++) {
+          var textPiece = textPieces[i];
+          if (textPiece.blank) {
+            newTextPieces.push(textPiece);
+          } else {
+            // let prevTextPiece = textPieces[i-1];
+            var prevTextPiece = newTextPieces[newTextPieces.length - 1];
+            if (i === 0 || prevTextPiece.blank) {
+              newTextPieces.push(textPiece);
+            } else {
+              prevTextPiece.text += ' ' + textPiece.text;
+            }
+          }
+        }
+        problems[h].textPieces = newTextPieces;
+      }
+      this.setState({ problems: problems });
+    }
+  }, {
+    key: 'updateDoc',
+    value: function updateDoc(event) {
+      event.preventDefault();
+      // const { docName, problems } = this.state;
+      // // make sure to grab the uneditable fields of the document so that
+      // // they are not erased with the update method. Update method replaces
+      // // the document if not mongo update modifiers are specified. It does
+      // // not replace the field _id.
+      // // They will probably be this.props.<whatever>
+      // Meteor.call('documents.upsert', { docName, problems },
+      //   (err, res) => {
+      //     const submitStatus = err ? 'Error, check console log' : 'SUCCESS!';
+      //     console.log(err);
+      //     this.setState({ submitStatus });
+      // });
+    }
+  }]);
+
+  return NewDocForm;
+}(_react2.default.Component);
+
+exports.default = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(NewDocForm);
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Problem = __webpack_require__(396);
+
+var _Problem2 = _interopRequireDefault(_Problem);
+
+var _DraggableProblem = __webpack_require__(399);
+
+var _DraggableProblem2 = _interopRequireDefault(_DraggableProblem);
+
+var _TextPieces = __webpack_require__(400);
+
+var _TextPieces2 = _interopRequireDefault(_TextPieces);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Problems = function (_React$Component) {
+  _inherits(Problems, _React$Component);
+
+  function Problems(props) {
+    _classCallCheck(this, Problems);
+
+    var _this = _possibleConstructorReturn(this, (Problems.__proto__ || Object.getPrototypeOf(Problems)).call(this, props));
+
+    _this.handleMouse = _this.handleMouse.bind(_this);
+    _this.state = {
+      draggable: true
+    };
+    return _this;
+  }
+
+  _createClass(Problems, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var Problem = this.state.draggable ? _DraggableProblem2.default : _Problem2.default;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        this.props.problems.map(function (problem, idx) {
+          return _react2.default.createElement(
+            Problem,
+            _extends({
+              key: problem.id,
+              id: problem.id,
+              index: idx
+            }, _this2.props, {
+              question: problem.question,
+              opaque: problem.opaque
+            }),
+            _react2.default.createElement('div', { className: 'move-box' }),
+            _react2.default.createElement(
+              'div',
+              {
+                className: 'problem-text',
+                onMouseEnter: _this2.handleMouse('enter'),
+                onMouseLeave: _this2.handleMouse('leave')
+              },
+              idx + 1,
+              '.',
+              ' ',
+              _react2.default.createElement(_TextPieces2.default, _extends({
+                problem: _this2.props.problems[idx],
+                problemIdx: idx
+              }, _this2.props))
+            )
+          );
+        })
+      );
+    }
+  }, {
+    key: 'handleMouse',
+    value: function handleMouse(direction) {
+      var _this3 = this;
+
+      return function (event) {
+        var draggable = direction === 'enter' ? false : true;
+        _this3.setState({ draggable: draggable });
+      };
+    }
+  }]);
+
+  return Problems;
+}(_react2.default.Component);
+
+exports.default = Problems;
+
+//Problem props:
+// moveProblem={this.props.moveProblem}
+// addNewProblem={this.props.addNewProblem}
+// makeProbVisible={this.props.makeProbVisible}
+// removeBlank={this.props.removeBlank}
+
+//TextPieces props:
+// handleTextPiecesInput={this.props.handleTextPiecesInput}
+// removeBlank={this.props.removeBlank}
+// dropBlank={this.props.dropBlank}
+// moveBlank={this.props.moveBlank}
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(23);
+
+var _reactDnd = __webpack_require__(32);
+
+var _ItemTypes = __webpack_require__(395);
+
+var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
+
+var _lodash = __webpack_require__(31);
+
+var _Problem = __webpack_require__(396);
+
+var _Problem2 = _interopRequireDefault(_Problem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var problemSource = {
+  beginDrag: function beginDrag(props) {
+    return {
+      id: props.id,
+      index: props.index
+    };
+  },
+  endDrag: function endDrag(props, monitor) {
+    props.makeProbVisible(monitor.getItem().index);
+  }
+};
+
+var problemTarget = {
+  hover: function hover(props, monitor, component) {
+    var dragIndex = monitor.getItem().index;
+    var hoverIndex = props.index;
+
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+
+    // Determine rectangle on screen
+    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
+
+    // Get vertical middle
+    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    // Determine mouse position
+    var clientOffset = monitor.getClientOffset();
+
+    // Get pixels to the top
+    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+
+    props.moveProblem(dragIndex, hoverIndex);
+    monitor.getItem().index = hoverIndex;
+  }
+};
+
+var newProblemTarget = {
+  hover: function hover(props, monitor, component) {
+    var dragIndex = monitor.getItem().index;
+    var hoverIndex = props.index;
+    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
+
+    var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    var clientOffset = monitor.getClientOffset();
+
+    var hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    // if dragIndex === 0 , => false
+    if (dragIndex !== null) {
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      props.moveProblem(dragIndex, hoverIndex);
+    } else {
+      props.addNewProblem(hoverIndex);
+    }
+    monitor.getItem().index = hoverIndex;
+  }
+};
+
+var newBlankTarget = {};
+
+exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(_ItemTypes2.default.PROBLEM, problemSource, function (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.PROBLEM, problemTarget, function (connect) {
+  return {
+    connectDropTarget: connect.dropTarget()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWPROBLEM, newProblemTarget, function (connect) {
+  return {
+    connectAnotherDropTarget: connect.dropTarget()
+  };
+}), (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, newBlankTarget, function (connect, monitor) {
+  return {
+    connectNewBlankDropTarget: connect.dropTarget(),
+    isNewBlankOver: monitor.isOver(),
+    didNewBlankDrop: monitor.didDrop(),
+    newBlank: monitor.getItem()
+  };
+}))(_Problem2.default);
+
+/***/ }),
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TextPiece = __webpack_require__(401);
+
+var _TextPiece2 = _interopRequireDefault(_TextPiece);
+
+var _reactInputAutosize = __webpack_require__(123);
+
+var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TextPieces = function (_React$Component) {
+  _inherits(TextPieces, _React$Component);
+
+  function TextPieces() {
+    _classCallCheck(this, TextPieces);
+
+    return _possibleConstructorReturn(this, (TextPieces.__proto__ || Object.getPrototypeOf(TextPieces)).apply(this, arguments));
+  }
+
+  _createClass(TextPieces, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'new-form-text-pieces' },
+        this.props.problem.textPieces.map(function (textPiece, idx) {
+          if (textPiece.blank) {
+            return _react2.default.createElement(
+              'div',
+              { key: textPiece.id, className: 'blank' },
+              _react2.default.createElement('input', {
+                placeholder: 'Answer blank',
+                className: 'new-form-answer-input',
+                value: _this2.props.problem.textPieces[idx].text,
+                onChange: _this2.props.handleTextPiecesInput(_this2.props.problemIdx, idx)
+              }),
+              _react2.default.createElement(
+                'button',
+                { className: 'modify-blank remove-blank', onClick: function onClick(event) {
+                    return _this2.props.removeBlank(_this2.props.problemIdx, idx);
+                  } },
+                '-'
+              )
+            );
+          } else {
+            var placeholder = idx === 0 ? 'Problem text' : '...continue text';
+            var minWidth = idx === 0 ? '' : '10';
+
+            return _react2.default.createElement(
+              _TextPiece2.default,
+              {
+                key: textPiece.id,
+                problemIdx: _this2.props.problemIdx,
+                textPieceIdx: idx,
+                dropBlank: _this2.props.dropBlank,
+                moveBlank: _this2.props.moveBlank
+              },
+              _react2.default.createElement(_reactInputAutosize2.default, {
+                placeholder: placeholder,
+                minWidth: minWidth,
+                inputClassName: 'new-form-text-piece-input',
+                value: _this2.props.problem.textPieces[idx].text,
+                onChange: _this2.props.handleTextPiecesInput(_this2.props.problemIdx, idx)
+              })
+            );
+          }
+        })
+      );
+    }
+  }]);
+
+  return TextPieces;
+}(_react2.default.Component);
+
+exports.default = TextPieces;
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(23);
+
+var _reactDnd = __webpack_require__(32);
+
+var _ItemTypes = __webpack_require__(395);
+
+var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var textPieceTarget = {
+  hover: function hover(props, monitor, component) {
+    var dragIndex = monitor.getItem().index;
+    var problemIdx = props.problemIdx;
+    var hoverBoundingRect = (0, _reactDom.findDOMNode)(component).getBoundingClientRect();
+
+    var hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+
+    var clientOffset = monitor.getClientOffset();
+
+    var hoverClientX = clientOffset.x - hoverBoundingRect.left;
+
+    var hoverIndex = props.textPieceIdx;
+    if (hoverClientX > hoverMiddleX) {
+      hoverIndex++;
+    }
+    if (dragIndex !== null) {
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+        return;
+      }
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+        return;
+      }
+      console.log(dragIndex, hoverIndex);
+      monitor.getItem().index = props.moveBlank(dragIndex, hoverIndex, problemIdx);
+    } else {
+      console.log(dragIndex, hoverIndex);
+      props.dropBlank(problemIdx, hoverIndex);
+      monitor.getItem().index = hoverIndex;
     }
   }
-}
-
-/**
- * Render a ReactElement to its initial HTML. This should only be used on the
- * server.
- * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring
- */
-function renderToString(element) {
-  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToString(): You must pass a valid ReactElement.') : _prodInvariant('46') : void 0;
-  return renderToStringImpl(element, false);
-}
-
-/**
- * Similar to renderToString, except this doesn't create extra DOM attributes
- * such as data-react-id that React uses internally.
- * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup
- */
-function renderToStaticMarkup(element) {
-  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToStaticMarkup(): You must pass a valid ReactElement.') : _prodInvariant('47') : void 0;
-  return renderToStringImpl(element, true);
-}
-
-module.exports = {
-  renderToString: renderToString,
-  renderToStaticMarkup: renderToStaticMarkup
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+var TextPiece = function (_React$Component) {
+  _inherits(TextPiece, _React$Component);
+
+  function TextPiece() {
+    _classCallCheck(this, TextPiece);
+
+    return _possibleConstructorReturn(this, (TextPiece.__proto__ || Object.getPrototypeOf(TextPiece)).apply(this, arguments));
+  }
+
+  _createClass(TextPiece, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          connectDropTarget = _props.connectDropTarget,
+          opaque = _props.opaque;
+      // const isActive = canDrop && isOver;
+
+      var opacity = opaque ? 0 : 1;
+      return connectDropTarget(_react2.default.createElement(
+        'div',
+        { style: { opacity: opacity, display: 'inline' } },
+        this.props.children
+      ));
+    }
+  }]);
+
+  return TextPiece;
+}(_react2.default.Component);
+
+exports.default = (0, _reactDnd.DropTarget)(_ItemTypes2.default.NEWBLANK, textPieceTarget, function (connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget()
+    // isOver: monitor.isOver(),
+    // canDrop: monitor.canDrop(),
+  };
+})(TextPiece);
 
 /***/ }),
-/* 394 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var ReactServerBatchingStrategy = {
-  isBatchingUpdates: false,
-  batchedUpdates: function (callback) {
-    // Don't do anything here. During the server rendering we don't want to
-    // schedule any updates. We will simply ignore them.
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NewBlank = __webpack_require__(403);
+
+var _NewBlank2 = _interopRequireDefault(_NewBlank);
+
+var _NewProblem = __webpack_require__(404);
+
+var _NewProblem2 = _interopRequireDefault(_NewProblem);
+
+var _shortid = __webpack_require__(56);
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Toolbox = function (_React$Component) {
+  _inherits(Toolbox, _React$Component);
+
+  function Toolbox() {
+    _classCallCheck(this, Toolbox);
+
+    return _possibleConstructorReturn(this, (Toolbox.__proto__ || Object.getPrototypeOf(Toolbox)).apply(this, arguments));
+  }
+
+  _createClass(Toolbox, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'toolbox' },
+        _react2.default.createElement(
+          'div',
+          { className: 'toolbox-title' },
+          'Toolbox'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'toolbox-instructions' },
+          'Drag and drop the items below to modify the document'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'tools' },
+          _react2.default.createElement(_NewProblem2.default, { id: _shortid2.default.generate(), removeProblem: this.props.removeProblem, makeProbVisible: this.props.makeProbVisible }),
+          _react2.default.createElement(_NewBlank2.default, { id: _shortid2.default.generate(), splitText: this.props.splitText, rejoinText: this.props.rejoinText })
+        )
+      );
+    }
+  }]);
+
+  return Toolbox;
+}(_react2.default.Component);
+
+exports.default = Toolbox;
+
+/***/ }),
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(23);
+
+var _reactDnd = __webpack_require__(32);
+
+var _ItemTypes = __webpack_require__(395);
+
+var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
+
+var _lodash = __webpack_require__(31);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var newBlankSource = {
+  beginDrag: function beginDrag(props, monitor) {
+    props.splitText();
+    return {
+      id: props.id,
+      index: null,
+      dragging: monitor.isDragging()
+    };
+  },
+  endDrag: function endDrag(props) {
+    // props.rejoinText();
   }
 };
 
-module.exports = ReactServerBatchingStrategy;
+var NewBlank = function (_React$Component) {
+  _inherits(NewBlank, _React$Component);
+
+  function NewBlank() {
+    _classCallCheck(this, NewBlank);
+
+    return _possibleConstructorReturn(this, (NewBlank.__proto__ || Object.getPrototypeOf(NewBlank)).apply(this, arguments));
+  }
+
+  _createClass(NewBlank, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          isDragging = _props.isDragging,
+          connectDragSource = _props.connectDragSource;
+
+
+      return connectDragSource(_react2.default.createElement(
+        'div',
+        { className: 'blank', style: { margin: '5px', cursor: 'move' } },
+        _react2.default.createElement('input', {
+          placeholder: 'New blank',
+          className: 'new-form-answer-input',
+          style: { width: '115px', backgroundColor: 'white', cursor: 'move' },
+          disabled: true
+        }),
+        _react2.default.createElement(
+          'button',
+          { className: 'modify-blank remove-blank' },
+          '-'
+        )
+      ));
+    }
+  }]);
+
+  return NewBlank;
+}(_react2.default.Component);
+
+exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWBLANK, newBlankSource, function (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+})(NewBlank);
+
+
+{/* <div style={{margin: '5px', cursor: 'move', }}>
+   <input
+     className='new-form-answer-input'
+     style={{cursor: 'move'}}
+     disabled
+     placeholder='New blank'
+   />
+  </div> */}
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(23);
+
+var _reactDnd = __webpack_require__(32);
+
+var _ItemTypes = __webpack_require__(395);
+
+var _ItemTypes2 = _interopRequireDefault(_ItemTypes);
+
+var _Problem = __webpack_require__(396);
+
+var _Problem2 = _interopRequireDefault(_Problem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var newProblemSource = {
+  beginDrag: function beginDrag(props) {
+    return {
+      id: props.id,
+      index: null
+    };
+  },
+  endDrag: function endDrag(props, monitor) {
+    if (!monitor.didDrop() && monitor.getItem().index !== null) {
+      props.removeProblem(monitor.getItem().index);
+    }
+    if (monitor.didDrop()) {
+      props.makeProbVisible(monitor.getItem().index);
+    }
+  }
+};
+
+var NewProblem = function (_React$Component) {
+  _inherits(NewProblem, _React$Component);
+
+  function NewProblem() {
+    _classCallCheck(this, NewProblem);
+
+    return _possibleConstructorReturn(this, (NewProblem.__proto__ || Object.getPrototypeOf(NewProblem)).apply(this, arguments));
+  }
+
+  _createClass(NewProblem, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          isDragging = _props.isDragging,
+          connectDragSource = _props.connectDragSource;
+
+
+      return connectDragSource(_react2.default.createElement(
+        'div',
+        { className: 'problem', style: { cursor: 'move' } },
+        _react2.default.createElement(
+          'div',
+          { className: 'problem-text', style: { border: '1px dashed #ababab' } },
+          '1. ',
+          _react2.default.createElement(
+            'div',
+            { className: 'new-form-text-pieces' },
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement('input', { style: { cursor: 'move', width: '110px' }, disabled: true, placeholder: 'New Problem', className: 'new-form-text-piece-input' })
+            )
+          )
+        )
+      ));
+    }
+  }]);
+
+  return NewProblem;
+}(_react2.default.Component);
+
+exports.default = (0, _reactDnd.DragSource)(_ItemTypes2.default.NEWPROBLEM, newProblemSource, function (connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+})(NewProblem);
 
 /***/ })
 /******/ ]);

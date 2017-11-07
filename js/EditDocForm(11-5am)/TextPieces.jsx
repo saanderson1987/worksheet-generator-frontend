@@ -10,8 +10,7 @@ class TextPieces extends React.Component {
           this.props.problem.textPieces.map( (textPiece, idx) => {
             if (textPiece.blank) {
               return (
-                <div key={ textPiece.id } >
-                  <div className='blank'>
+                  <div key={ textPiece.id } className='blank'>
                     <input
                       placeholder="Answer blank"
                       className='new-form-answer-input'
@@ -21,7 +20,6 @@ class TextPieces extends React.Component {
                     <button className='modify-blank remove-blank' onClick={ (event) => this.props.removeBlank(this.props.problemIdx, idx) }>-</button>
 
                   </div>
-                </div>
               );
             } else {
               const placeholder = idx === 0 ? 'Problem text' : '...continue text';

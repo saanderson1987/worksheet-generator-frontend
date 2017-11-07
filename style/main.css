@@ -144,8 +144,6 @@ button {
   margin: 0px 4px 1px 0px; }
 
 .new-form-text-pieces {
-  display: inline-flex;
-  align-items: flex-end;
   padding-bottom: 3px;
   margin: 10px;
   border-bottom: 1px solid gray; }
@@ -177,8 +175,9 @@ button {
 .blank {
   border: 1px solid #a9a9a9;
   align-items: center;
-  display: flex;
-  margin: 0px 7px; }
+  display: inline;
+  margin: 0px 7px;
+  padding: 1px; }
 
 .blank input {
   border: none; }

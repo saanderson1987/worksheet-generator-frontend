@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EditDocForm from './EditDocForm/EditDocForm.jsx';
+import EditDocForm from './EditDocForm(11-5am)/EditDocForm.jsx';
 import DocForm from './DocForm/DocForm.jsx';
 import {cloneDeep} from 'lodash';
 import shortid from 'shortid';

@@ -48,8 +48,8 @@
 }
 
 .new-form-text-pieces {
-  display: inline-flex;
-  align-items: flex-end;
+  // display: inline-flex;
+  // align-items: flex-end;
   padding-bottom: 3px;
   margin: 10px;
   border-bottom: 1px solid gray;
@@ -88,8 +88,9 @@
 .blank {
   border: 1px solid #a9a9a9;
   align-items: center;
-  display: flex;
+  display: inline;
   margin: 0px 7px;
+  padding: 1px;
 }
 
 .blank input {
