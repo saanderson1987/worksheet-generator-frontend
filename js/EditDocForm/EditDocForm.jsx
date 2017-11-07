@@ -281,13 +281,16 @@ class NewDocForm extends React.Component {
       };
   }
 
-  handleTextPiecesInput(problemIdx, textPieceIdx) {
-    return (event) => {
-      const value = event.target.value;
+  handleTextPiecesInput(problemIdx, textPieceIdx, value) {
       const problems = cloneDeep(this.state.problems);
       problems[problemIdx].textPieces[textPieceIdx].text = value;
       this.setState({ problems });
-    };
+  }
+
+  handleProblemChange(value) {
+    const problems = cloneDeep(this.state.problems);
+    problems[problemIdx].textPieces[textPieceIdx].text = value;
+    this.setState({ problems });
   }
 
   splitText() {
