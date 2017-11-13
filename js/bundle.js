@@ -42884,20 +42884,6 @@ var EditDocForm = function (_React$Component) {
                 splitText: this.splitText,
                 rejoinText: this.rejoinText
               })
-            ),
-            _react2.default.createElement(
-              _ButtonRow2.default,
-              null,
-              _react2.default.createElement(
-                'button',
-                null,
-                'Cancel'
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'button_green', onClick: this.updateDoc },
-                'Save Changes'
-              )
             )
           )
         )

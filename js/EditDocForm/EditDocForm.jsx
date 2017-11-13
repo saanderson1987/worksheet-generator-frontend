@@ -156,10 +156,10 @@ class EditDocForm extends React.Component {
                 rejoinText={this.rejoinText}
               />
             </div>
-            <ButtonRow>
+            {/* <ButtonRow>
               <button>Cancel</button>
               <button className='button_green' onClick={this.updateDoc}>Save Changes</button>
-            </ButtonRow>
+            </ButtonRow> */}
           </div>
         </div>
       </div>
