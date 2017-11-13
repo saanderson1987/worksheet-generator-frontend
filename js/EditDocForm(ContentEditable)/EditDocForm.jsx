@@ -20,6 +20,7 @@ class NewDocForm extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleQuestionInput = this.handleQuestionInput.bind(this);
     this.handleTextPiecesInput = this.handleTextPiecesInput.bind(this);
+    this.handleProblemChange = this.handleProblemChange.bind(this);
     this.moveProblem = this.moveProblem.bind(this);
     this.addNewProblem = this.addNewProblem.bind(this);
     this.makeProbVisible = this.makeProbVisible.bind(this);
@@ -64,6 +65,7 @@ class NewDocForm extends React.Component {
           textPieces: []
         },
       ],
+      isTextSplit: false,
       submitStatus: '',
     };
   }
@@ -113,9 +115,11 @@ class NewDocForm extends React.Component {
                 makeProbVisible={this.makeProbVisible}
                 removeBlank={this.removeBlank}
                 handleQuestionInput={this.handleQuestionInput}
+                handleProblemChange={this.handleProblemChange}
                 handleTextPiecesInput={this.handleTextPiecesInput}
                 dropBlank={this.dropBlank}
                 moveBlank={this.moveBlank}
+                isTextSplit={this.state.isTextSplit}
               />
               <Toolbox
                 removeProblem={this.removeProblem}
@@ -281,13 +285,22 @@ class NewDocForm extends React.Component {
       };
   }
 
-  handleTextPiecesInput(problemIdx, textPieceIdx) {
-    return (event) => {
-      const value = event.target.value;
+  handleTextPiecesInput(problemIdx, textPieceIdx, value) {
       const problems = cloneDeep(this.state.problems);
       problems[problemIdx].textPieces[textPieceIdx].text = value;
       this.setState({ problems });
-    };
+  }
+
+  handleProblemChange(event, problemIdx) {
+    const problems = cloneDeep(this.state.problems);
+    event.target.children[0].childNodes.forEach( (textPieceNode, idx) => {
+      if (textPieceNode.constructor === Text) {
+        problems[problemIdx].textPieces[idx].text = textPieceNode.wholeText;
+      } else {
+        problems[problemIdx].textPieces[idx].text = textPieceNode.childNodes[0].value;
+      }
+    });
+    this.setState({ problems });
   }
 
   splitText() {
@@ -314,7 +327,7 @@ class NewDocForm extends React.Component {
       }
       problems[h].textPieces = newTextPieces;
     }
-    this.setState({problems});
+    this.setState({problems, isTextSplit: true});
   }
 
   rejoinText() {
@@ -322,7 +335,6 @@ class NewDocForm extends React.Component {
     for (let h = 0; h < problems.length; h++) {
       let textPieces = problems[h].textPieces;
       let newTextPieces = [];
-      // debugger;
       for (let i = 0; i < textPieces.length; i++) {
         let textPiece = textPieces[i];
         if (textPiece.blank) {
@@ -339,7 +351,7 @@ class NewDocForm extends React.Component {
       }
       problems[h].textPieces = newTextPieces;
     }
-    this.setState({problems});
+    this.setState({problems, isTextSplit: false});
   }
 
   updateDoc(event) {

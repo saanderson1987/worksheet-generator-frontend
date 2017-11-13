@@ -16,7 +16,7 @@ const newBlankSource = {
   },
 
   endDrag(props) {
-    // props.rejoinText();
+    props.rejoinText();
   }
 };
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EditDocForm from './EditDocForm(11-5am)/EditDocForm.jsx';
+import EditDocForm from './EditDocForm/EditDocForm.jsx';
 import DocForm from './DocForm/DocForm.jsx';
 import {cloneDeep} from 'lodash';
 import shortid from 'shortid';
 import NavBar from './NavBar/NavBar.jsx';
+import Test from './test.jsx';
 
 const ws1 = {
   docName: 'WS1',

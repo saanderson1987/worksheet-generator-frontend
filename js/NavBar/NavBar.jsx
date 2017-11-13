@@ -21,19 +21,25 @@ export default class NavBar extends React.Component {
   }
 
   render(){
+
+    const navRow2 =
+    <div className="nav__row2">
+      <div className='nav__row2-item'>Documents I'm Subscribed To</div>
+      <div className='nav__row2-item'>Documents I've Created</div>
+      <div className='nav__row2-item'>
+        <div className="plus-icon">+</div>
+        <div className='nav__row2-text_left-of-icon'>New Document</div>
+      </div>
+    </div>;
+
     return (
         <nav>
           <div className="nav__row1">
             <div className="nav__logo">Worksheet Generator</div>
-            <div onClick={this.logout}>Logout</div>
+            {/* <div onClick={this.logout}>Logout</div> */}
           </div>
-          <div className="nav__row2">
-            <div className='nav__row2-item'>Documents I'm Subscribed To</div>
-            <div className='nav__row2-item'>Documents I've Created</div>
-            <div className='nav__row2-item'>
-              <div className="plus-icon">+</div>
-              <div className='nav__row2-text_left-of-icon'>New Document</div>
-            </div>
+          <div className="nav__row2" >
+            <div className='nav__row2-item' style={{borderRight: 'none'}}>Edit Worksheet</div>
           </div>
         </nav>
     );

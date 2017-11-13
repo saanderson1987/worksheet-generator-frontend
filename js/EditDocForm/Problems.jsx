@@ -43,7 +43,6 @@ class Problems extends React.Component {
                     />
                 </div>
               </Problem>
-
             );
           })
         }

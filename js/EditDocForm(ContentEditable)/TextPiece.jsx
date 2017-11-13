@@ -47,7 +47,7 @@ class TextPiece extends React.Component {
     // const isActive = canDrop && isOver;
     const opacity = opaque ? 0 : 1;
     return connectDropTarget(
-      <div style={{opacity, display: 'inline'}} >
+      <div style={{opacity, display: 'inline', paddingRight: '3px'}} >
         {this.props.children}
       </div>
     );

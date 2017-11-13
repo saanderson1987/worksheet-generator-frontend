@@ -12,6 +12,7 @@ export default class Instructions extends React.Component {
           value={this.props.instructions}
           name='instructions'
           onChange={this.props.handleInput()}
+          style={{width: '600px'}}
         />
       }
     };

@@ -13,7 +13,7 @@ import Problems from './Problems.jsx';
 import ButtonRow from '../ui/ButtonRow.jsx';
 import Toolbox from './Toolbox.jsx';
 
-class NewDocForm extends React.Component {
+class EditDocForm extends React.Component {
   constructor(props) {
     super(props);
     this.updateDoc = this.updateDoc.bind(this);
@@ -57,11 +57,43 @@ class NewDocForm extends React.Component {
         },
         {
           id: shortid.generate(),
-          textPieces: []
+          textPieces: [
+            {
+              text : "You don't need to be a(n)",
+              blank : false,
+              id: shortid.generate(),
+            },
+            {
+              text : "genius",
+              blank : true,
+              id: shortid.generate(),
+            },
+            {
+              text : "to see what the problem here is.",
+              blank : false,
+              id: shortid.generate(),
+            },
+          ]
         },
         {
           id: shortid.generate(),
-          textPieces: []
+          textPieces: [
+            {
+              text : "Make sure you read all the",
+              blank : false,
+              id: shortid.generate(),
+            },
+            {
+              text : "instructions",
+              blank : true,
+              id: shortid.generate(),
+            },
+            {
+              text : "carefully before setting up the device",
+              blank : false,
+              id: shortid.generate(),
+            },
+          ]
         },
       ],
       submitStatus: '',
@@ -69,8 +101,8 @@ class NewDocForm extends React.Component {
   }
 
   // componentWillReceiveProps(nextProps) {
-  //     if (nextProps.doc !== {}) {
-  //     this.setState( {doc: nextProps.doc});
+  //   if (nextProps.doc !== {}) {
+  //     this.setState( nextProps );
   //   }
   // }
 
@@ -281,16 +313,13 @@ class NewDocForm extends React.Component {
       };
   }
 
-  handleTextPiecesInput(problemIdx, textPieceIdx, value) {
+  handleTextPiecesInput(problemIdx, textPieceIdx) {
+    return (event) => {
+      const value = event.target.value;
       const problems = cloneDeep(this.state.problems);
       problems[problemIdx].textPieces[textPieceIdx].text = value;
       this.setState({ problems });
-  }
-
-  handleProblemChange(value) {
-    const problems = cloneDeep(this.state.problems);
-    problems[problemIdx].textPieces[textPieceIdx].text = value;
-    this.setState({ problems });
+    };
   }
 
   splitText() {
@@ -363,4 +392,4 @@ class NewDocForm extends React.Component {
 
 }
 
-export default DragDropContext(HTML5Backend)(NewDocForm);
+export default DragDropContext(HTML5Backend)(EditDocForm);
